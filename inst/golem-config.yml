@@ -1,0 +1,8 @@
+default:
+  golem_name: covid19RiskPlanner
+  golem_version: 0.0.0.9000
+  app_prod: no
+production:
+  app_prod: yes
+dev:
+  golem_wd: C:/Users/arch/projects/covid19RiskPlanner
