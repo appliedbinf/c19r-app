@@ -53,9 +53,9 @@ roundUpNice <- function(x, nice = c(1, 2, 4, 5, 6, 8, 10)) {
 #' @examples
 str_or_unk <- function(obj){
     if(is.null(obj)){
-        "Unknown"
+        return("Unknown")
     } else {
-        obj
+        return(obj)
     }
 }
 
@@ -123,65 +123,9 @@ riskParams = function(val) {
 }
 
 
-#' Title
-#'
-#' @param source 
-#' @param asc_bias 
-#' @param event_size 
-#' @param answer 
-#' @param ip 
-#' @param vacc_imm 
-#' @param latitude 
-#' @param longitude 
-#' @param utm_source 
-#' @param utm_medium 
-#' @param utm_content 
-#' @param utm_campaign 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-save_willingness <- function(source,
-                             asc_bias,
-                             event_size,
-                             answer,
-                             ip,
-                             vacc_imm,
-                             latitude,
-                             longitude,
-                             utm_source = "NULL", 
-                             utm_medium = "NULL",
-                             utm_content = "NULL", 
-                             utm_campaign = "NULL") {
-    
-    
-    sql <- "INSERT INTO willingness 
-                (source, asc_bias, event_size, answer, 
-                ip, vacc_imm, latitude, longitude, 
-                utm_source, utm_medium, utm_content, 
-                utm_campaign)
-            VALUES 
-                (?source, ?asc_bias, ?event_size, ?answer,
-                ?ip, ?vacc_imm, ?latitude, ?longitude,
-                NULLIF(?utm_source, 'NULL'), NULLIF(?utm_medium, 'NULL'), 
-                NULLIF(?utm_content, 'NULL'), NULLIF(?utm_campaign, 'NULL'))
-    "
-    
-    query <- DBI::sqlInterpolate(DBI::ANSI(), gsub("\\n\\w+", " ", sql),
-                            source = source,
-                            asc_bias = asc_bias,
-                            event_size = event_size,
-                            answer = answer,
-                            ip = ip,
-                            vacc_imm = vacc_imm,
-                            latitude = str_or_unk(latitude),
-                            longitude = str_or_unk(longitude),
-                            utm_source = utm_source, 
-                            utm_medium = utm_source,
-                            utm_content = utm_source, 
-                            utm_campaign = utm_source
-    )
-    DBI::dbSendQuery(db, query)
-    
+close_connections <- function(){
+    current_conns <- DBI::dbListConnections(RMySQL::MySQL())
+    for (conn in current_conns){
+        DBI::dbDisconnect(conn)
+    }
 }

@@ -18,10 +18,10 @@ app_ui <- function(request) {
     title = "COVID-19 Event Risk Assessment Planning Tool",
     header = NAVPAGE_HEADER,
     footer = NAVPAGE_FOOTER,
-    usa_map_tab(),
-    risk_game_tab(),
-    global_map_tab(),
-    usa_real_time_tab(),
+    mod_usa_risk_map_ui("usa_risk_map"),
+    mod_risk_quiz_ui("quiz"),
+    mod_global_risk_map_ui("global_risk_map_ui_1"),
+    mod_usa_real_time_ui("usa_real_time"),
     tutorial_tab(),
     about_tabset()
   )

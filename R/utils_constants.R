@@ -1,8 +1,16 @@
 event_size <- c(10, 15, 20, 25, 50, 100, 500, 1000, 5000)
 
-county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
-stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[,c('STUSPS','NAME', 'geometry')]
-names(stateline) <- c('stname','name', 'geometry')
+risk_text <- c(
+    "10" = paste0("<b>A dinner party</b>", '<img src="www/example_images/10_1.svg" alt="dinner party">', '<b style="float: right">...or a convenience store</b>', '<img src="www/example_images/10_2.svg" alt="Store" width="500" height="600">'),
+    "15" = HTML("<b>A boutique</b>", '<img src="www/example_images/15_1.svg" alt=" boutique">', '<b style="float: right">...or a fitness class</b>', '<img src="www/example_images/15_2.svg" alt="fitness class">'),
+    "20" = HTML("<b>A coffee shop</b>", '<img src="www/example_images/20_1.svg" alt="coffee shop">', '<b style="float: right">...or a neighborhood BBQ</b>', '<img src="www/example_images/20_2.svg" alt="neighborhood BBQ">'),
+    "25" = HTML("<b>A classroom</b>", '<img src="www/example_images/25_1.svg" alt="classroom">', '<b style="float: right">...or small bar</b>', '<img src="www/example_images/25_2.svg" alt="small bar">'),
+    "50" = HTML("<b>A supermarket</b>", '<img src="www/example_images/50_1.svg" alt="supermarket">', '<b style="float: right">...or a restaurant</b>', '<img src="www/example_images/50_2.svg" alt="house party">'),
+    "100" = HTML("<b>A wedding</b>", '<img src="www/example_images/100_1.svg" alt="wedding">', '<b style="float: right">...or a movie theater</b>', '<img src="www/example_images/100_2.svg" alt="movie theater">'),
+    "500" = HTML("<b>A large airplane</b>", '<img src="www/example_images/500_1.svg" alt="large airplane">', '<b style="float: right">...or a high school basketball game</b>', '<img src="www/example_images/500_2.svg" alt="basketball game">'),
+    "1000" = HTML("<b>A performing arts theater</b>", '<img src="www/example_images/1000_1.svg" alt="performing arts theater">', '<b style="float: right">...or a graduation ceremony</b>', '<img src="www/example_images/1000_2.svg" alt="graduation ceremony">'),
+    "5000" = HTML("<b>A large concert</b>", '<img src="www/example_images/5000_1.svg" alt="large concert">', '<b style="float: right">...or a college basketball game</b>', '<img src="www/example_images/5000_2.svg" alt="basketball game">')
+)
 
 regions <- c(
     "USA, Alphabetical" = "states-alpha.png",

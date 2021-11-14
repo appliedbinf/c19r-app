@@ -1,5 +1,16 @@
 ### R functions
 # add in methods from https://github.com/rstudio/leaflet/pull/598
+#' Title
+#'
+#' @param map 
+#' @param layerId 
+#' @param radius 
+#' @param data 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 setCircleMarkerRadius <- function(map, layerId, radius, data=leaflet::getMapData(map)){
   options <- list(layerId = layerId, radius = radius)
   # evaluate all options
@@ -9,6 +20,26 @@ setCircleMarkerRadius <- function(map, layerId, radius, data=leaflet::getMapData
   leaflet::invokeMethod(map, data, "setRadius", options$layerId, options$radius)
 }
 
+#' Title
+#'
+#' @param map 
+#' @param layerId 
+#' @param radius 
+#' @param stroke 
+#' @param color 
+#' @param weight 
+#' @param opacity 
+#' @param fill 
+#' @param fillColor 
+#' @param fillOpacity 
+#' @param dashArray 
+#' @param options 
+#' @param data 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 setCircleMarkerStyle <- function(map, layerId
                                  , radius = NULL
                                  , stroke = NULL
@@ -47,6 +78,27 @@ setCircleMarkerStyle <- function(map, layerId
   leaflet::invokeMethod(map, data, "setStyle", "marker", layerId, style);
 }
 
+#' Title
+#'
+#' @param map 
+#' @param data 
+#' @param layerId 
+#' @param stroke 
+#' @param color 
+#' @param weight 
+#' @param opacity 
+#' @param fill 
+#' @param fillColor 
+#' @param fillOpacity 
+#' @param dashArray 
+#' @param smoothFactor 
+#' @param noClip 
+#' @param options 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 setShapeStyle <- function( map, data = leaflet::getMapData(map), layerId,
                            stroke = NULL, color = NULL,
                            weight = NULL, opacity = NULL,
@@ -75,6 +127,18 @@ setShapeStyle <- function( map, data = leaflet::getMapData(map), layerId,
 }
 
 
+#' Title
+#'
+#' @param map 
+#' @param data 
+#' @param layerId 
+#' @param label 
+#' @param options 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 setShapeLabel <- function( map, data = leaflet::getMapData(map), layerId,
                            label = NULL,
                            options = NULL

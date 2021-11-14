@@ -9,4 +9,10 @@ golem::detach_all_attached()
 golem::document_and_reload()
 
 # Run the application
-run_app()
+
+dev_onStart <- function(){
+    db <<- connect_to_db(db="c19r")
+    get_data()
+}
+
+run_app(onStart = dev_onStart)

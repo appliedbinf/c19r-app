@@ -9,17 +9,45 @@ pcrit <- function(x) {
     0.01 / x
 }
 
+#' Title
+#'
+#' @param I 
+#' @param n 
+#' @param USpop 
+#' @param scaling_factor 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calc_risk <- function(I, n, USpop, scaling_factor=10/14) {
     p_I <- (I / USpop) * scaling_factor
     r <- 1 - (1 - p_I)**n
     round(100 * r, 1)
 }
 
+#' Title
+#'
+#' @param x 
+#' @param nice 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 roundUpNice <- function(x, nice = c(1, 2, 4, 5, 6, 8, 10)) {
     if (length(x) != 1) stop("'x' must be of length 1")
     10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
 }
 
+#' Title
+#'
+#' @param riskData 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 maplabs <- function(riskData) {
     riskData <- riskData %>%
         dplyr::mutate(risk = dplyr::case_when(
@@ -39,6 +67,14 @@ maplabs <- function(riskData) {
     return(labels)
 }
 
+#' Title
+#'
+#' @param val 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 riskParams = function(val) {
     dplyr::case_when(val < 1 ~ "Not enough data",
                      val > 99 ~ "> 99%",

@@ -36,6 +36,8 @@ usethis::use_package( "shinyWidgets" )
 usethis::use_package( "shinythemes" )
 usethis::use_package( "tidyr" )
 usethis::use_package( "utils" )
+usethis::use_package( "wk" )
+usethis::use_package( "s2" )
 ## Add modules ----
 ## Create a module infrastructure in R/
 

@@ -23,7 +23,21 @@ timeout <- sever::sever_default(title = "Session timeout reached",
 #'
 #' @examples
 get_data <- function() {
-    current_fh <- tail(list.files(app_sys("states_current/"), full.names = TRUE), 1)
+    TZ <<- "America/New_York"
+    county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
+    stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[,c('STUSPS','NAME', 'geometry')]
+    names(stateline) <- c('stname','name', 'geometry')
+    current_fh <- list.files(app_sys("states_current/"), full.names = TRUE, pattern = "*.csv")[1]
+    current_ts <<- lubridate::ymd_hms(gsub(".csv", "", basename(current_fh), fixed = T))
+    max_offset <<- lubridate::hours(2)
+    if (lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)) {
+        url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
+        new_fh_base <- lubridate::now(tzone = TZ) %>% format("%Y%m%d_%H%M%S")
+        new_fh = glue::glue("{dirname(current_fh)}/{new_fh_base}.csv")
+        utils::download.file(url = url, destfile = new_fh)
+        unlink(current_fh)
+        current_fh <- new_fh
+    }
     state_data <<- read.csv(current_fh, stringsAsFactors = F)
     states <<- unique(state_data$state)
     current_time <<- daily_time <<- Sys.Date()

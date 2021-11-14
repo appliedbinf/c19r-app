@@ -41,7 +41,7 @@ rights_holders = paste("2020-2021 Aroon T. Chande <achande@ihrc.com>",
     "2021 Freyja A. Brandel-Tanis <freyja.alice@gatech.edu>",
     "2020 Seohla Lee <seolha.lee@gatech.edu>",
     "2020 Quan Nguyen <qnguyen83@gatech.edu>",
-    "2020 Mallory Harris <Mharris9@stanford.edu>", sep = "\n")
+    "2020 Mallory Harris <Mharris9@stanford.edu>", sep = "\n  ")
 usethis::use_mit_license(copyright_holder =  rights_holders)  # You can set another license here
 usethis::use_readme_rmd( open = FALSE )
 usethis::use_code_of_conduct()
