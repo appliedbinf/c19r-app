@@ -1,3 +1,5 @@
-# covid19RiskPlanner 0.0.0.9000
+# covid19RiskPlanner 1.0
 
-* Added a `NEWS.md` file to track changes to the package.
+* App fully ported over to `{golem}`
+* Now uses `{shiny}` modules and `reactive()` liberally
+* Database secrets passed via ENV to docker or saved in the currently scoped `.Renviron`
