@@ -9,8 +9,6 @@ make_resp_slider(input, label)
 make_resp_slider(input, label)
 }
 \arguments{
-\item{input}{}
-
 \item{label}{}
 }
 \value{

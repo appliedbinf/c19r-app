@@ -9,8 +9,6 @@ roundUpNice(x, nice = c(1, 2, 4, 5, 6, 8, 10))
 roundUpNice(x, nice = c(1, 2, 4, 5, 6, 8, 10))
 }
 \arguments{
-\item{x}{}
-
 \item{nice}{}
 }
 \value{

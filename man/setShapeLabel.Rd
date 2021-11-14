@@ -13,14 +13,6 @@ setShapeLabel(
 )
 }
 \arguments{
-\item{map}{}
-
-\item{data}{}
-
-\item{layerId}{}
-
-\item{label}{}
-
 \item{options}{}
 }
 \value{

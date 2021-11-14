@@ -7,12 +7,6 @@
 setCircleMarkerRadius(map, layerId, radius, data = leaflet::getMapData(map))
 }
 \arguments{
-\item{map}{}
-
-\item{layerId}{}
-
-\item{radius}{}
-
 \item{data}{}
 }
 \value{

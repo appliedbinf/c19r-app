@@ -9,12 +9,6 @@ calc_risk(I, n, USpop, scaling_factor = 10/14)
 calc_risk(I, n, USpop, scaling_factor = 10/14)
 }
 \arguments{
-\item{I}{}
-
-\item{n}{}
-
-\item{USpop}{}
-
 \item{scaling_factor}{}
 }
 \value{

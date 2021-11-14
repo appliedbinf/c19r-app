@@ -2,6 +2,7 @@
 
 export("%>%")
 export(about_tabset)
+export(build_results_table)
 export(calc_risk)
 export(connect_to_db)
 export(get_data)
