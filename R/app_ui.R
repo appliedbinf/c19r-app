@@ -3,15 +3,27 @@
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' 
 #' @noRd
 app_ui <- function(request) {
-  tagList(
-    # Leave this function for adding external resources
+  navbarPage(
     golem_add_external_resources(),
-    # Your application UI logic 
-    fluidPage(
-      h1("covid19RiskPlanner")
-    )
+    theme = shinythemes::shinytheme("sandstone"),
+    shinyjs::useShinyjs(),
+    sever::use_sever(),
+    selected = "usa",
+    collapsible = TRUE,
+    id = "nav-page",
+    windowTitle = "COVID-19 Event Risk Assessment Planning Tool",
+    title = "COVID-19 Event Risk Assessment Planning Tool",
+    header = NAVPAGE_HEADER,
+    footer = NAVPAGE_FOOTER,
+    usa_map_tab(),
+    risk_game_tab(),
+    global_map_tab(),
+    usa_real_time_tab(),
+    tutorial_tab(),
+    about_tabset()
   )
 }
 
@@ -28,13 +40,15 @@ golem_add_external_resources <- function(){
   add_resource_path(
     'www', app_sys('app/www')
   )
- 
+
   tags$head(
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'covid19RiskPlanner'
-    )
+    ),
+    shinyjs::useShinyjs(),
+    sever::use_sever()
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
   )
