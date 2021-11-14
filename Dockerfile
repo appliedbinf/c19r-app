@@ -33,6 +33,10 @@ RUN Rscript -e 'remotes::install_github("ar0ch/shinypanels@06483856c76a7e879b399
 RUN Rscript -e 'remotes::install_github("ar0ch/sever@97ca2388481c4dd3ba51fc95992088f143599678")'
 RUN Rscript -e 'remotes::install_version("wk",upgrade="never", version = "0.5.0")'
 RUN Rscript -e 'remotes::install_version("s2",upgrade="never", version = "1.0.7")'
+RUN Rscript -e 'remotes::install_version("jsonlite",upgrade="never", version = "1.7.2")'
+RUN Rscript -e 'remotes::install_version("RMySQL",upgrade="never", version = "0.10.22")'
+RUN Rscript -e 'remotes::install_version("data.table",upgrade="never", version = "1.13.6")'
+RUN Rscript -e 'remotes::install_version("pool",upgrade="never", version = "0.1.6")'
 
 RUN mkdir /build_zone
 ADD . /build_zone

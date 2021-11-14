@@ -1,6 +1,6 @@
 #' about_tabset
 #'
-#' @param ... 
+#' @param ...
 #'
 #' @return
 #' @export

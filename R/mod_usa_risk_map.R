@@ -4,10 +4,10 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
-#' @importFrom shiny NS tagList 
-mod_usa_risk_map_ui <- function(id){
+#' @importFrom shiny NS tagList
+mod_usa_risk_map_ui <- function(id) {
   ns <- NS(id)
   tabPanel(
     value = "usa",
@@ -184,12 +184,12 @@ mod_usa_risk_map_ui <- function(id){
     ))
   )
 }
-    
+
 #' usa_risk_map Server Functions
 #'
-#' @noRd 
-mod_usa_risk_map_server <- function(id, globals){
-  moduleServer( id, function(input, output, session){
+#' @noRd
+mod_usa_risk_map_server <- function(id, globals) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     output$risk_context_us <- renderUI({
       div(p(
@@ -200,8 +200,8 @@ mod_usa_risk_map_server <- function(id, globals){
         class = "context-header"
       ))
     })
-    
-    
+
+
     observeEvent(input$map_will, {
       shinyjs::disable("map_will")
       shinyjs::delay(3000, shinyjs::enable("map_will"))
@@ -217,30 +217,30 @@ mod_usa_risk_map_server <- function(id, globals){
           vacc_imm = input$imm_lvl,
           latitude = globals$latitude(),
           longitude = globals$longitude(),
-          utm_source = globals$ref_content$utm_source,
-          utm_medium = globals$ref_content$utm_medium,
-          utm_content = globals$ref_content$utm_content,
-          utm_campaign = globals$ref_content$utm_campaign
+          utm_source = globals$ref_content()$utm_source,
+          utm_medium = globals$ref_content()$utm_medium,
+          utm_content = globals$ref_content()$utm_content,
+          utm_campaign = globals$ref_content()$utm_campaign
         )
-       shinyWidgets::show_toast("Response saved", text = "Thank you!", timerProgressBar = F)
+        shinyWidgets::show_toast("Response saved", text = "Thank you!", timerProgressBar = F)
       } else {
         shinyWidgets::inputSweetAlert(
           session = session, inputId = "over18_US",
           inputPlaceholder = CONSENT_POPUP_PLACEHOLDER,
-          title = CONSENT_POPUP_TITLE, 
+          title = CONSENT_POPUP_TITLE,
           text = CONSENT_POPUP_TEXT,
           type = "question", reset_input = TRUE, btn_labels = "Confirm", input = "radio",
           inputOptions = c("yes" = "Yes", "no" = "No"), inputValue = "yes"
         )
       }
     })
-    
+
     observeEvent(input$over18_US, {
       if (input$over18_US == "yes") {
         session$sendCustomMessage("cookie-set", list(
           name = "consent", value = "yes"
         ))
-        
+
         save_willingness(
           db = globals$db,
           source = "map",
@@ -251,16 +251,16 @@ mod_usa_risk_map_server <- function(id, globals){
           vacc_imm = input$imm_lvl,
           latitude = globals$latitude(),
           longitude = globals$longitude(),
-          utm_source = globals$ref_content$utm_source,
-          utm_medium = globals$ref_content$utm_medium,
-          utm_content = globals$ref_content$utm_content,
-          utm_campaign = globals$ref_content$utm_campaign
+          utm_source = globals$ref_content()$utm_source,
+          utm_medium = globals$ref_content()$utm_medium,
+          utm_content = globals$ref_content()$utm_content,
+          utm_campaign = globals$ref_content()$utm_campaign
         )
         shinyWidgets::show_toast("Response saved", text = "Thank you!", timerProgressBar = F)
       }
     })
-    
-    
+
+
     output$usa_map <- leaflet::renderLeaflet({
       risk_data <- usa_counties %>%
         dplyr::select(
@@ -278,7 +278,7 @@ mod_usa_risk_map_server <- function(id, globals){
           polyid = paste0("id", GEOID),
           imid = paste0("im", GEOID)
         )
-      
+
       basemap <- leaflet::leaflet(options = leaflet::leafletOptions(worldCopyJump = F, preferCanvas = TRUE)) %>%
         leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron) %>%
         leaflet::setView(
@@ -325,9 +325,9 @@ mod_usa_risk_map_server <- function(id, globals){
           )
         ))
     })
-    
+
     map_obs <- reactive(list(input$event_size_map, input$asc_bias, input$imm_lvl))
-    
+
     observeEvent(map_obs(), {
       risk_data <- usa_counties %>%
         dplyr::select(
@@ -350,18 +350,17 @@ mod_usa_risk_map_server <- function(id, globals){
           polyid = paste0("id", GEOID),
           imid = paste0("im", GEOID)
         )
-      
+
       leaflet::leafletProxy("usa_map", data = risk_data) %>%
         setShapeStyle(layerId = ~polyid, fillColor = pal(risk_data$risk), color = "#444444", fillOpacity = 0.7, ) %>%
         setShapeStyle(layerId = ~imid, fillColor = "white", fillOpacity = ~imOp, ) %>%
         setShapeLabel(layerId = ~imid, label = maplabs(risk_data))
     })
-    
   })
 }
-    
+
 ## To be copied in the UI
 # mod_usa_risk_map_ui("usa_risk_map_ui_1")
-    
+
 ## To be copied in the server
 # mod_usa_risk_map_server("usa_risk_map_ui_1")

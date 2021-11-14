@@ -4,10 +4,10 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
-#' @importFrom shiny NS tagList 
-mod_global_risk_map_ui <- function(id){
+#' @importFrom shiny NS tagList
+mod_global_risk_map_ui <- function(id) {
   ns <- NS(id)
   tabPanel(
     value = "global",
@@ -52,43 +52,45 @@ mod_global_risk_map_ui <- function(id){
           "<p>(Note: This map uses a Web Mercator projection that inflates the area of states in northern latitudes. County boundaries are generalized for faster drawing.)</p>"
         ),
         fluidRow(
-          align="center",
-          column(10,
-                 mod_switch_maps_ui("switcher_global", label = "Explore USA risk estimates")
-          ))
+          align = "center",
+          column(
+            10,
+            mod_switch_maps_ui("switcher_global", label = "Explore USA risk estimates")
+          )
+        )
       )
     )
   )
 }
-    
+
 #' global_risk_map Server Functions
 #'
-#' @noRd 
-mod_global_risk_map_server <- function(id){
-  moduleServer( id, function(input, output, session){
+#' @noRd
+mod_global_risk_map_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     observeEvent(input$global_event_size_map, {
       output$eu_map_static <- renderUI({
         tags$iframe(
           src = paste0("https://covid19risk.biosci.gatech.edu/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
-          style="position: relative; height: 60vh; width: -moz-available; width: -webkit-fill-available;  width: fill-available; max-width: 992px; max-height: 500px; min-height: 350px; align: center", frameBorder = "0"
+          style = "position: relative; height: 60vh; width: -moz-available; width: -webkit-fill-available;  width: fill-available; max-width: 992px; max-height: 500px; min-height: 350px; align: center", frameBorder = "0"
         )
       })
     })
-    
+
     observeEvent(input$global_asc_bias, {
       output$eu_map_static <- renderUI({
         tags$iframe(
           src = paste0("https://covid19risk.biosci.gatech.edu/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
-          style="position: relative; height: 60vh; width: 95vw; max-width: 992px; max-height: 500px; min-height: 350px; align: center", frameBorder = "0"
+          style = "position: relative; height: 60vh; width: 95vw; max-width: 992px; max-height: 500px; min-height: 350px; align: center", frameBorder = "0"
         )
       })
     })
   })
 }
-    
+
 ## To be copied in the UI
 # mod_global_risk_map_ui("global_risk_map_ui_1")
-    
+
 ## To be copied in the server
 # mod_global_risk_map_server("global_risk_map_ui_1")

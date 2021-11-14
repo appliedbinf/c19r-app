@@ -4,10 +4,10 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
-#' @importFrom shiny NS tagList 
-mod_risk_quiz_ui <- function(id){
+#' @importFrom shiny NS tagList
+mod_risk_quiz_ui <- function(id) {
   ns <- NS(id)
   tabPanel(
     value = "game",
@@ -18,12 +18,12 @@ mod_risk_quiz_ui <- function(id){
       '
         $(document).ready(function () {
           navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  
+
           function onError (err) {
           console.log(err)
             Shiny.onInputChange("geolocation", false);
           }
-  
+
           function onSuccess (position) {
             setTimeout(function () {
               Shiny.onInputChange("setGeo", true);
@@ -140,15 +140,15 @@ mod_risk_quiz_ui <- function(id){
     )
   )
 }
-    
+
 #' risk_quiz Server Functions
 #'
-#' @noRd 
-mod_risk_quiz_server <- function(id, globals){
-  moduleServer( id, function(input, output, session){
+#' @noRd
+mod_risk_quiz_server <- function(id, globals) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     geo_county <- reactiveVal(NULL)
-    
+
     observeEvent(input$`nav-page`, {
       if (input$`nav-page` == "game" && is.null(globals$consent())) {
         shinyWidgets::inputSweetAlert(
@@ -166,7 +166,7 @@ mod_risk_quiz_server <- function(id, globals){
         )
       }
     })
-    
+
     observeEvent(input$game_consent, {
       if (input$game_consent == "yes") {
         session$sendCustomMessage("cookie-set", list(name = "consent", value = "yes"))
@@ -174,31 +174,31 @@ mod_risk_quiz_server <- function(id, globals){
         session$sendCustomMessage("cookie-set", list(name = "consent", value = "no"))
       }
     })
-    
+
     observeEvent(input$risk_state,
-                 {
-                   if (length(geo_county()) > 0) {
-                     geo_county(NULL)
-                   } else {
-                     if (input$risk_state == "USA") {
-                       game_counties <- "Entire US"
-                     } else {
-                       game_counties <- usa_counties %>%
-                         dplyr::filter(stname == !!input$risk_state) %>%
-                         dplyr::pull(NAME) %>%
-                         sort() %>%
-                         unique()
-                     }
-                     
-                     updateSelectizeInput("risk_county",
-                                          choices = game_counties,
-                                          session = session
-                     )
-                   }
-                 },
-                 ignoreNULL = T
+      {
+        if (length(geo_county()) > 0) {
+          geo_county(NULL)
+        } else {
+          if (input$risk_state == "USA") {
+            game_counties <- "Entire US"
+          } else {
+            game_counties <- usa_counties %>%
+              dplyr::filter(stname == !!input$risk_state) %>%
+              dplyr::pull(NAME) %>%
+              sort() %>%
+              unique()
+          }
+
+          updateSelectizeInput("risk_county",
+            choices = game_counties,
+            session = session
+          )
+        }
+      },
+      ignoreNULL = T
     )
-    
+
     output$location_selector <- renderUI({
       if (globals$geolocation()) {
         HTML("<p class='loc-text success'>Detected your location automatically</p>")
@@ -206,39 +206,39 @@ mod_risk_quiz_server <- function(id, globals){
         HTML("<p class='loc-text'>Please choose your location below</p>")
       }
     })
-    
+
     observeEvent(globals$setGeo(),
-                 {
-                   if (globals$geolocation()) {
-                     api_url <- glue::glue(
-                       "https://geo.fcc.gov/api/census/block/find?",
-                       "latitude={globals$latitude()}&longitude={globals$longitude()}&format=json"
-                     )
-                     location <- jsonlite::fromJSON(api_url, )
-                     geo_county(location$County$name)
-                     
-                     if (is.null(geo_county())) {
-                       return(NULL)
-                     }
-                     updateSelectizeInput(
-                       "risk_county",
-                       session = session,
-                       choices = usa_counties %>%
-                         dplyr::filter(stname == location$State$code) %>%
-                         dplyr::pull(NAME) %>%
-                         sort() %>%
-                         unique(),
-                       selected = geo_county()
-                     )
-                     updateSelectizeInput("risk_state",
-                                          session = session,
-                                          selected = location$State$code
-                     )
-                   }
-                 },
-                 ignoreNULL = T
+      {
+        if (globals$geolocation()) {
+          api_url <- glue::glue(
+            "https://geo.fcc.gov/api/census/block/find?",
+            "latitude={globals$latitude()}&longitude={globals$longitude()}&format=json"
+          )
+          location <- jsonlite::fromJSON(api_url, )
+          geo_county(location$County$name)
+
+          if (is.null(geo_county())) {
+            return(NULL)
+          }
+          updateSelectizeInput(
+            "risk_county",
+            session = session,
+            choices = usa_counties %>%
+              dplyr::filter(stname == location$State$code) %>%
+              dplyr::pull(NAME) %>%
+              sort() %>%
+              unique(),
+            selected = geo_county()
+          )
+          updateSelectizeInput("risk_state",
+            session = session,
+            selected = location$State$code
+          )
+        }
+      },
+      ignoreNULL = T
     )
-    
+
     observeEvent(input$submit_answers, {
       if (is.null(globals$consent())) {
         shinyWidgets::inputSweetAlert(
@@ -287,7 +287,7 @@ mod_risk_quiz_server <- function(id, globals){
             pred_1000 = "4_1000"
           )
       }
-      
+
       pred_risk <- pred_risk %>%
         dplyr::mutate(
           g_20 = ans_20,
@@ -296,7 +296,7 @@ mod_risk_quiz_server <- function(id, globals){
           g_1000 = ans_1000
         ) %>%
         dplyr::rowwise() %>%
-        dplyr:: mutate(
+        dplyr::mutate(
           diff_20 = pred_20 - g_20,
           diff_50 = pred_50 - g_50,
           diff_100 = pred_100 - g_100,
@@ -339,7 +339,7 @@ mod_risk_quiz_server <- function(id, globals){
           signed_err <= 25 ~ "Our risk estimates were lower than your guesses."
         )
       }
-      
+
       if (globals$consent() == "yes") {
         sql <-
           "INSERT INTO risk_game_results
@@ -358,7 +358,7 @@ mod_risk_quiz_server <- function(id, globals){
                 NULLIF(?utm_content, 'NULL'),
                 NULLIF(?utm_campaign, 'NULL')
         )"
-        
+
         query <-
           DBI::sqlInterpolate(
             DBI::ANSI(),
@@ -376,16 +376,16 @@ mod_risk_quiz_server <- function(id, globals){
             ip = globals$ip(),
             lat = globals$latitude(),
             long = globals$longitude(),
-            utm_source = globals$ref_content$utm_source,
-            utm_medium = globals$ref_content$utm_medium,
-            utm_content = globals$ref_content$utm_content,
-            utm_campaign = globals$ref_content$utm_campaign
+            utm_source = globals$ref_content()$utm_source,
+            utm_medium = globals$ref_content()$utm_medium,
+            utm_content = globals$ref_content()$utm_content,
+            utm_campaign = globals$ref_content()$utm_campaign
           )
         conn <- pool::poolCheckout(db)
         DBI::dbSendQuery(conn, query)
         pool::poolReturn(conn)
       }
-      
+
       tweet_url <- glue::glue(
         "https://twitter.com/intent/tweet?text={tweet_msg}&url=https://covid19risk.biosci.gatech.edu/?quiz"
       )
@@ -446,8 +446,8 @@ mod_risk_quiz_server <- function(id, globals){
         btn_labels = NA
       )
     })
-    
-    
+
+
     observeEvent(input$game_will, {
       save_willingness(
         db = globals$db,
@@ -459,21 +459,19 @@ mod_risk_quiz_server <- function(id, globals){
         vacc_imm = -1,
         latitude = globals$latitude(),
         longitude = globals$longitude(),
-        utm_source = globals$ref_content$utm_source,
-        utm_medium = globals$ref_content$utm_medium,
-        utm_content = globals$ref_content$utm_content,
-        utm_campaign = globals$ref_content$utm_campaign
+        utm_source = globals$ref_content()$utm_source,
+        utm_medium = globals$ref_content()$utm_medium,
+        utm_content = globals$ref_content()$utm_content,
+        utm_campaign = globals$ref_content()$utm_campaign
       )
       shinyjs::hide("game_interactive_elem")
       shinyjs::hide("game_will")
     })
-    
- 
   })
 }
-    
+
 ## To be copied in the UI
 # mod_risk_quiz_ui("risk_quiz_ui_1")
-    
+
 ## To be copied in the server
 # mod_risk_quiz_server("risk_quiz_ui_1")

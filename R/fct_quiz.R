@@ -1,4 +1,4 @@
-#' quiz 
+#' quiz
 #'
 #' @description A fct function
 #'

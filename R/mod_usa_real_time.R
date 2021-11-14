@@ -4,10 +4,10 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
-#' @importFrom shiny NS tagList 
-mod_usa_real_time_ui <- function(id){
+#' @importFrom shiny NS tagList
+mod_usa_real_time_ui <- function(id) {
   ns <- NS(id)
   tabPanel(
     value = "usa-real-time",
@@ -34,8 +34,8 @@ mod_usa_real_time_ui <- function(id){
           selectizeInput(ns("states_dd"), "Select state", choices = names(regions), selected = "GA")
         ),
         textInput(ns("event_dd"),
-                  "Event size:",
-                  placeholder = 275
+          "Event size:",
+          placeholder = 275
         ),
         downloadButton(ns("dl_dd"), "Download plot"),
         htmlOutput(ns("dd_text"))
@@ -49,20 +49,20 @@ mod_usa_real_time_ui <- function(id){
     )
   )
 }
-    
+
 #' usa_real_time Server Functions
 #'
-#' @noRd 
-mod_usa_real_time_server <- function(id, globals){
-  moduleServer( id, function(input, output, session){
+#' @noRd
+mod_usa_real_time_server <- function(id, globals) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
-    
+
+
     dd_inputs <- reactive({
       list(input$states_dd, input$event_dd, input$use_state_dd)
     })
-    
-    
+
+
     observeEvent(dd_inputs(), {
       req(dd_inputs)
       xblock <- c(10, 100, 1000, 10**4, 10**5)
@@ -101,12 +101,12 @@ mod_usa_real_time_server <- function(id, globals){
       event_size <- as.numeric(gsub("[ ,-]", "", isolate(input$event_dd)))
       risk <- calc_risk(nvec, event_size, USpop, 1)
       risk <- dplyr::case_when(risk < .1 ~ "<0.1", risk > 99 ~ ">99", TRUE ~ as.character(risk))
-      
+
       output$dd_text <- renderUI({
         HTML(paste0(
           "<p style='font-size: 18px;'><br/><strong>C<sub>I</sub> ",
           "= Current reported incidence</strong><br/>Chance someone is ",
-          "COVID19 positive at C<sub>I</sub>  (", 
+          "COVID19 positive at C<sub>I</sub>  (",
           format(nvec[1], big.mark = ","), "): ", risk[1], "%<br/>",
           "Chance someone is COVID19 positive at 5x C<sub>I</sub> (",
           format(nvec[2], big.mark = ","), "): ", risk[2], "%<br/>",
@@ -114,8 +114,8 @@ mod_usa_real_time_server <- function(id, globals){
           format(nvec[3], big.mark = ","), "): ", risk[3], "%</p>"
         ))
       })
-      
-      
+
+
       output$plot_dd <- renderPlot({
         req(input$states_dd)
         req(input$event_dd)
@@ -140,14 +140,14 @@ mod_usa_real_time_server <- function(id, globals){
           nlabel <- log(1 - risk_vals[i]) / log(1 - pcrit_label)
           pcrit_lab_list[[i]] <- data.frame("risk" = risk_vals[i], "x" = nlabel, y = ytarget * 1.4)
         }
-        
+
         risk_vals_list <- list()
         for (i in 1:length(nvec)) {
           p_equiv <- nvec[i] / USpop
           risk_vals_I <- round(100 * (1 - (1 - p_equiv)**sizevec), 2)
           risk_vals_list[[i]] <- data.frame("nvec" = nvec[i], "svec" = sizevec, "risk" = risk_vals_I)
         }
-        
+
         pcrit.df <- do.call(rbind.data.frame, pcrit_risk_list)
         pcrit_lab.df <- do.call(rbind.data.frame, pcrit_lab_list)
         risk.df <- do.call(rbind.data.frame, risk_vals_list) %>%
@@ -156,7 +156,7 @@ mod_usa_real_time_server <- function(id, globals){
             risk <= 0.1 ~ "<0.1",
             TRUE ~ as.character(risk)
           ))
-        
+
         shiny::validate(
           need(is.numeric(event_size), "Event size must be a number"),
           need(event_size >= 5, "Event size must be >=5"),
@@ -194,7 +194,7 @@ mod_usa_real_time_server <- function(id, globals){
         dd_plot
       })
     })
-    
+
     output$dl_dd <- downloadHandler(
       filename = function() {
         paste("Predicted-risk-", states_dd, "-Event_size-", input$event_dd, "-", lubridate::today(), ".png", sep = "")
@@ -203,13 +203,11 @@ mod_usa_real_time_server <- function(id, globals){
         ggplot2::ggsave(file, plot = dd_plot, width = 12, height = 12, units = "in")
       }
     )
-    
- 
   })
 }
-    
+
 ## To be copied in the UI
 # mod_usa_real_time_ui("usa_real_time_ui_1")
-    
+
 ## To be copied in the server
 # mod_usa_real_time_server("usa_real_time_ui_1")

@@ -38,6 +38,10 @@ usethis::use_package( "tidyr" )
 usethis::use_package( "utils" )
 usethis::use_package( "wk" )
 usethis::use_package( "s2" )
+usethis::use_package( "pool" )
+usethis::use_package( "jsonlite" )
+usethis::use_package( "data.table" )
+usethis::use_package( "RMySQL" )
 ## Add modules ----
 ## Create a module infrastructure in R/
 
