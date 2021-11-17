@@ -39,11 +39,45 @@ timeout <- sever::sever_default(
 #' @examples
 get_data <- function() {
   TZ <<- "America/New_York"
+
+  DEFAULT_RISK_DATA <- app_sys("app/www/usa_risk_counties.csv")
+  RISK_DATA <- Sys.getenv("C19R_RISK_DATA", DEFAULT_RISK_DATA)
+
+  if (!file.exists(RISK_DATA)) {
+    stop(
+      glue::glue(
+        "The pre-computed risk data does not exist at the given path",
+        "\n{RISK_DATA}"
+      )
+    )
+  }
+  
+  DEFAULT_CASES_DIR <- app_sys("states_current/")
+  CASES_DIR <- Sys.getenv("C19R_CASES_DIR", DEFAULT_CASES_DIR)
+  
+  if (!dir.exists(CASES_DIR)) {
+    stop(
+      glue::glue(
+        "The current cases directory does not exist",
+        "\n{CASES_DIR}"
+      )
+    )
+  }
+
+
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
   names(stateline) <- c("stname", "name", "geometry")
-  current_fh <- list.files(app_sys("states_current/"), full.names = TRUE, pattern = "*.csv")[1]
-  current_ts <<- lubridate::ymd_hms(gsub(".csv", "", basename(current_fh), fixed = T))
+  current_fh <- list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv")[1]
+  
+  if (is.na(current_fh)){
+    current_ts <<- lubridate::now(tzone = TZ) - lubridate::hours(2.5)
+  } else {
+    ts_str <- gsub(".csv", "", basename(current_fh), fixed = T)
+    current_ts <<- lubridate::ymd_hms(ts_str)
+  }
+  
+  
   max_offset <<- lubridate::hours(2)
   if (lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)) {
     url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
@@ -53,7 +87,7 @@ get_data <- function() {
     unlink(current_fh)
     current_fh <- new_fh
   }
-  state_data <<- read.csv(current_fh, stringsAsFactors = F)
+  state_data <<- vroom::vroom(current_fh)
   states <<- unique(state_data$state)
   current_time <<- daily_time <<- Sys.Date()
   cur_date <- lubridate::ymd(Sys.Date()) - 1
@@ -67,7 +101,7 @@ get_data <- function() {
   state_data$C_i <<- round((states_current$cases - states_historic$cases) * 10 / 14)
   state_data$state <<- name2abbr[state_data$state]
   state_data <<- state_data %>% tidyr::drop_na()
-  usa_counties <<- vroom::vroom(app_sys("app/www/usa_risk_counties.csv")) %>%
+  usa_counties <<- vroom::vroom(RISK_DATA) %>%
     dplyr::select(-NAME, -stname) %>%
     dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
