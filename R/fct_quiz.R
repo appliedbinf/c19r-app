@@ -1,11 +1,14 @@
-#' Title
+#' build_results_table
 #'
-#' @param sel_state
+#' @param state State selection from dropdown
+#' @param county County selection from dropdown
+#' @param ans_20 User answer for the event size = 20 slider
+#' @param ans_50 User answer for the event size = 50 slider 
+#' @param ans_100 User answer for the event size = 100 slider
+#' @param ans_1000 User answer for the event size = 1000 slider
 #'
 #' @return
-#' @export
 #'
-#' @examples
 build_results_table <- function(state, county, ans_20, 
                                 ans_50, ans_100, ans_1000) {
   if (state == "USA") {
@@ -51,6 +54,29 @@ build_results_table <- function(state, county, ans_20,
     )
 }
 
+#' save_quiz_results
+#'
+#' @param db Database, from global env (see [loadDataOnStart()])
+#' @param geoid Geoid of location selected
+#' @param data_ts Timestamp of quiz submission
+#' @param p20 Predicted event size = 20
+#' @param p50 Predicted event size = 50
+#' @param p100 Predicted event size = 100
+#' @param p1000 Predicted event size = 1000
+#' @param g20 Guess event size = 20
+#' @param g50 Guess event size = 50
+#' @param g100 Guess event size = 100
+#' @param g1000 Guess event size = 1000
+#' @param ip User ip if known, from `globals$ip()`
+#' @param lat User latitude, 0 if unknown.  Typically from `globals$latitude()`
+#' @param long User longitude, 0 if unknown.  Typically from `globals$longitude()`
+#' @param utm_source `utm_source=` value from query string or 'NULL'
+#' @param utm_medium `utm_medium=` value from query string or 'NULL'
+#' @param utm_content `utm_content=` value from query string or 'NULL'
+#' @param utm_campaign `utm_campaign=` value from query string or 'NULL'
+#'
+#' @return
+#'
 save_quiz_results <- function(db,
                               geoid,
                               data_ts,

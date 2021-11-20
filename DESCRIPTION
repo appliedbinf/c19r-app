@@ -1,6 +1,6 @@
 Package: covid19RiskPlanner
 Title: COVID-19 Event Risk Assessment Planning Tool
-Version: 1.0
+Version: 1.0.1
 Authors@R: person('Aroon', 'Chande', email = 'achande@ihrc.com', role = c('cre', 'aut'))
 Description: Visualize the risk stimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.
 License: MIT + file LICENSE

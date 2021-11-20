@@ -9,9 +9,6 @@ about_tabset(...)
 \arguments{
 \item{...}{}
 }
-\value{
-
-}
 \description{
 about_tabset
 }

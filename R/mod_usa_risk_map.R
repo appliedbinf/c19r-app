@@ -1,6 +1,6 @@
 #' usa_risk_map UI Function
 #'
-#' @description A shiny Module.
+#' @description US risk map tab.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -12,25 +12,7 @@ mod_usa_risk_map_ui <- function(id) {
   tabPanel(
     value = "usa",
     title = "USA Risk estimates by county",
-    fluid = TRUE,
-    tags$script(
-      '
-        $(document).on("shiny:sessioninitialized", function() {
-          $.ajaxSetup({
-              timeout: 1000
-          });
-          $.get("https://ipinfo.io?token=15dd4534f98729", function(response) {
-              Shiny.setInputValue("ip_data", response.ip, {
-                  priority: "event"
-              });
-          }, "json").fail(function() {
-              Shiny.setInputValue("ip_data", "Unknown", {
-                  priority: "event"
-              });
-          });
-         });
-      '
-    ),
+    fluid = TRUE, 
     shinypanels::panelsPage(fluidRow(
       shinypanels::panel(
         title = "USA Risk estimates by county",
@@ -39,11 +21,10 @@ mod_usa_risk_map_ui <- function(id) {
         body = div(
           HTML(
             paste0(
-              "<p>This map shows the risk level of attending an event, given the event size and location.",
-              "<br/><br/>You can reduce the risk that one case becomes many by wearing a mask, distancing, and gathering outdoors in smaller groups. For vaccinated individuals, preventative steps can reduce the risk of breakthrough infections that spread to vulnerable individuals. For unvaccinated individuals, preventative steps before vaccination can reduce the risk of breakthrough disease, including potentially severe cases, hospitalizations, and fatalities.<br/><br/>",
-              "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.",
-              "<br/><br/>",
-              "Choose an event size and ascertainment bias below</p>"
+              "<div>This map shows the risk level of attending an event, given the event size and location.</div>",
+              "<div class='hidden-sm hidden-xs'>You can reduce the risk that one case becomes many by wearing a mask, distancing, and gathering outdoors in smaller groups. For vaccinated individuals, preventative steps can reduce the risk of breakthrough infections that spread to vulnerable individuals. For unvaccinated individuals, preventative steps before vaccination can reduce the risk of breakthrough disease, including potentially severe cases, hospitalizations, and fatalities.</div>",
+              "<div>The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.</div>",
+              "<div>Choose an event size and ascertainment bias below</div>"
             )
           ),
           shinyWidgets::sliderTextInput(
@@ -78,56 +59,25 @@ mod_usa_risk_map_ui <- function(id) {
           mod_show_data_ui("to_data"),
           HTML(
             paste0(
-              "<br/><br/>",
+              "<details>",
+              "<summary>Learn about ascertainment bias and vaccination levels</summary>",
               "Based on seroprevalence data and increases in testing, by default we assume there are four times more cases than are being reported (4:1 ascertainment bias). In places with less testing availability, that bias may be higher. We are evaluating the inclusion of lower ascertainment biases based on increased testing.",
               "<br/><br/>",
-              "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing state-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series)."
+              "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing state-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series).",
+              "</details>"
+            )
+          ),
+          fluidRow(
+            align = "center", class = "hidden-md hidden-lg hidden-xl d-sm d-xs",
+            column(
+              12,
+              mod_take_quiz_button_ui("to_quiz")
             )
           )
         )
       ),
       shinypanels::panel(
-        class = "col-sm-12 col-md-2 hidden-sm hidden-xs",
-        body = div(
-          class = "",
-          htmlOutput(ns("risk_context_us")),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              HTML(
-                "<h3>Can you guess the risk levels in YOUR community?  Try the Risk Quiz and share your score!</h3>"
-              ),
-            )
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              mod_take_quiz_button_ui("to_quiz")
-            )
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              div(
-                div(style = "height: 10px;"),
-                div(
-                  class = "well fake-sidebar",
-                  HTML(
-                    "<p class='intro-text'><a href='https://duke.qualtrics.com/jfe/form/SV_0SZR4fPxyUAg9Ke', rel='noopener' target='_blank'>Fill out this 5-minute survey</a> for a chance to win a $50 Amazon gift card!</p>"
-                  )
-                )
-              )
-            )
-          )
-        ),
-        title = "Risk context",
-        collapsed = F
-      ),
-      shinypanels::panel(
-        class = "col-md-auto",
+        class = "col-md-6",
         title = "",
         can_collapse = FALSE,
         body = div(
@@ -180,6 +130,46 @@ mod_usa_risk_map_ui <- function(id) {
             )
           )
         )
+      ),
+      shinypanels::panel(
+        class = "col-sm-12 col-md-2 hidden-sm hidden-xs",
+        body = div(
+          class = "",
+          htmlOutput(ns("risk_context_us")),
+          fluidRow(
+            align = "center",
+            column(
+              12,
+              HTML(
+                "<h3>Can you guess the risk levels in YOUR community?  Try the Risk Quiz and share your score!</h3>"
+              ),
+            )
+          ),
+          fluidRow(
+            align = "center",
+            column(
+              12,
+              mod_take_quiz_button_ui("to_quiz")
+            )
+          ),
+          fluidRow(
+            align = "center",
+            column(
+              12,
+              div(
+                div(style = "height: 10px;"),
+                div(
+                  class = "well fake-sidebar",
+                  HTML(
+                    "<p class='intro-text'><a href='https://duke.qualtrics.com/jfe/form/SV_0SZR4fPxyUAg9Ke', rel='noopener' target='_blank'>Fill out this 5-minute survey</a> for a chance to win a $50 Amazon gift card!</p>"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        title = "Risk context",
+        collapsed = F
       )
     ))
   )
@@ -260,8 +250,12 @@ mod_usa_risk_map_server <- function(id, globals) {
       }
     })
 
-
+    w <- waiter::Waiter$new(id = ns("usa_map"), 
+                            html = tagList(waiter::spin_wave(),
+                                          h4("Loading risk map...")),
+                            color = "#D6DBDF")
     output$usa_map <- leaflet::renderLeaflet({
+      w$show()
       risk_data <- usa_counties %>%
         dplyr::select(
           GEOID,
@@ -281,31 +275,36 @@ mod_usa_risk_map_server <- function(id, globals) {
 
       basemap <- leaflet::leaflet(options = leaflet::leafletOptions(worldCopyJump = F, preferCanvas = TRUE)) %>%
         leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron) %>%
+        # Center on US
         leaflet::setView(
           lat = 37.1,
           lng = -95.7,
           zoom = 4
         ) %>%
+        # Add state boundaries
         leaflet::addPolygons(
           layerId = ~stateline,
           data = stateline,
           fill = FALSE, color = "#943b29", weight = 1, smoothFactor = 0.5,
           opacity = 1.0
         ) %>%
+        # Add county geoms
         leaflet::addPolygons(
-          layerId = ~polyid,
+          layerId = ~polyid, # id of geom that will be used by js functions
           data = risk_data,
           color = "#444444",
           weight = 0.2,
           smoothFactor = 0.1,
           highlight = leaflet::highlightOptions(weight = 1),
         ) %>%
+        # Add vaccine immunity geoms
         leaflet::addPolygons(
-          layerId = ~imid,
+          layerId = ~imid, # id of geom that will be used by js functions
           data = risk_data,
           weight = 0,
           smoothFactor = 0.1,
         ) %>%
+        # Add custom legend
         leaflet::addLegend(
           data = risk_data,
           position = "topright",
@@ -317,6 +316,7 @@ mod_usa_risk_map_server <- function(id, globals) {
             paste0(legendlabs)
           }
         ) %>%
+        # Add geolocate easy button
         leaflet::addEasyButton(leaflet::easyButton(
           icon = "fa-crosshairs fa-lg",
           title = "Locate Me",

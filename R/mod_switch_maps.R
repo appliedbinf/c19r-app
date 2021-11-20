@@ -1,6 +1,6 @@
 #' switch_maps UI Function
 #'
-#' @description A shiny Module.
+#' @description [shinyWidgets::actionBttn] to switch which maps tab you're on.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

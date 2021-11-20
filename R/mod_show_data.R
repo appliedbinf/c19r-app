@@ -1,6 +1,6 @@
 #' show_data UI Function
 #'
-#' @description A shiny Module.
+#' @description Actionlink to About -> data tabset.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

@@ -2,7 +2,8 @@
 % Please edit documentation in R/leaflet_inplace.R
 \name{setShapeLabel}
 \alias{setShapeLabel}
-\title{Title}
+\title{setShapeLabel
+from https://github.com/rstudio/leaflet/pull/598}
 \usage{
 setShapeLabel(
   map,
@@ -19,5 +20,6 @@ setShapeLabel(
 
 }
 \description{
-Title
+setShapeLabel
+from https://github.com/rstudio/leaflet/pull/598
 }

@@ -1,6 +1,6 @@
 #' global_risk_map UI Function
 #'
-#' @description A shiny Module.
+#' @description Global risk map page.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

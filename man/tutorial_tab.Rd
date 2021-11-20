@@ -6,9 +6,6 @@
 \usage{
 tutorial_tab()
 }
-\value{
-
-}
 \description{
 tutorial_tab
 }

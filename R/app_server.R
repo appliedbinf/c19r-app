@@ -5,17 +5,24 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
+  # Timezone to use for timestamp-based triggers
   TZ <- "America/New_York"
+  # Every 2 hours (on first request) update data
   if (lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)) {
     get_data()
   }
 
+  # 10 min idle timeout
   sever::rupture(ms = 600000, html = timeout)
 
+  # End session on id timeout
   observeEvent(input$ruptured, {
     session$close()
   })
 
+  # On load, check the query string for:
+  # game/quiz -> switch to Risk Quiz tab
+  # global -> switch to global map tab
   observe({
     query <- getQueryString()
     params <- names(query)
@@ -26,6 +33,7 @@ app_server <- function(input, output, session) {
     }
   })
 
+  # Reactive used to parse UTM vars from query string
   ref_content <- reactive({
     query <- getQueryString()
     params <- names(query)
@@ -37,6 +45,7 @@ app_server <- function(input, output, session) {
     content
   })
 
+  # Global variables to pass around modules
   r <- reactive
   globals <- list(
     consent = r(input[["cookies"]][["consent"]]),

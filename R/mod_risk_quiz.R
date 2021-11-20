@@ -1,6 +1,6 @@
 #' risk_quiz UI Function
 #'
-#' @description A shiny Module.
+#' @description Risk quix tab.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

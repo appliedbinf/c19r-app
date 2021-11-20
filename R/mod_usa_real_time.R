@@ -1,6 +1,6 @@
 #' usa_real_time UI Function
 #'
-#' @description A shiny Module.
+#' @description Real time risk tab.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -58,20 +58,28 @@ mod_usa_real_time_server <- function(id, globals) {
     ns <- session$ns
 
 
+    # Reactive inputs that trigger plot generation and Ci text updates
+    # input$states_dd = State selected from dropdown
+    # input$event_dd = Event size to compute risk clines for
+    # input$user_state_dd BOOL, whether to use the selected state or whole US
     dd_inputs <- reactive({
       list(input$states_dd, input$event_dd, input$use_state_dd)
     })
 
 
     observeEvent(dd_inputs(), {
+      # Require all inputs, prevents run before init and user interaction
       req(dd_inputs)
+      # Set X-axis exemplar event sizes 
       xblock <- c(10, 100, 1000, 10**4, 10**5)
       names(xblock) <- RTR_X_LABS
+      # Should the selected state or whole US be usused
       use_state <- input$use_state_dd
       state <- input$states_dd
       states_dd <- state
       if (use_state) {
-        USpop <- as.numeric(state_pops[state_pops$state == state, "pop"])
+        #
+        predictionPopSize <- as.numeric(state_pops[state_pops$state == state, "pop"])
         pcrit_label_x <- RTR_PCRIT_STATES
         C_i <- as.numeric(state_data[state_data$state == state, "C_i"])
         yblock <- c(10, 100, 1000, C_i, 5 * C_i, 10 * C_i, 10 * 10^ceiling(log10(10 * C_i)))
@@ -79,7 +87,8 @@ mod_usa_real_time_server <- function(id, globals) {
         ylimits <- c(10, max(yblock))
       } else {
         states_dd <<- "US"
-        USpop <- 331 * 10^6
+        # Estimate of US population, small variations here has no real impact
+        predictionPopSize <- 331 * 10^6
         pcrit_label_x <- RTR_PCRIT_US
         C_i <- sum(as.numeric(state_data$C_i))
         yblock <- c(10**c(1, 2, 3, 4, 5), 4 * 10**5, 10**6, 2 * 10**6, 8 * 10**6)
@@ -98,8 +107,10 @@ mod_usa_real_time_server <- function(id, globals) {
         ylimits <- c(10**4, 3 * 10**7)
       }
       nvec <- c(C_i, 5 * C_i, 10 * C_i)
+      # Get event size from user input, strip spaces, commas and dashes
       event_size <- as.numeric(gsub("[ ,-]", "", isolate(input$event_dd)))
-      risk <- calc_risk(nvec, event_size, USpop, 1)
+      # Calculate risk
+      risk <- calc_risk(nvec, event_size, predictionPopSize, 1)
       risk <- dplyr::case_when(risk < .1 ~ "<0.1", risk > 99 ~ ">99", TRUE ~ as.character(risk))
 
       output$dd_text <- renderUI({
@@ -119,22 +130,22 @@ mod_usa_real_time_server <- function(id, globals) {
       output$plot_dd <- renderPlot({
         req(input$states_dd)
         req(input$event_dd)
-        req(USpop)
+        req(predictionPopSize)
         shiny::validate(need(event_size > 9, "Please enter an event size >= 10"))
         n <- matlab::logspace(0, 6, 100)
         pcrit_val <- pcrit(n)
-        numcrit <- pcrit_val * USpop
+        numcrit <- pcrit_val * predictionPopSize
         sizevec <- c(1, 10, 100, 1000, 10000, 100000, 10**7)
         risk_vals <- c(0.01, 0.02, 0.1, 0.5, 0.9)
         pcrit_risk_list <- list()
         for (i in 1:length(risk_vals)) {
           pcrit_risk <- 1 - (1 - risk_vals[i])**(1 / n)
-          pcrit_risk <- pcrit_risk * USpop
-          pcrit_risk[is.infinite(pcrit_risk)] <- USpop
+          pcrit_risk <- pcrit_risk * predictionPopSize
+          pcrit_risk[is.infinite(pcrit_risk)] <- predictionPopSize
           pcrit_risk_list[[i]] <- data.frame("risk" = risk_vals[i], "y" = pcrit_risk, "x" = n)
         }
         ytarget <- 100000
-        pcrit_label <- ytarget / USpop
+        pcrit_label <- ytarget / predictionPopSize
         pcrit_lab_list <- list()
         for (i in 1:length(risk_vals)) {
           nlabel <- log(1 - risk_vals[i]) / log(1 - pcrit_label)
@@ -143,7 +154,7 @@ mod_usa_real_time_server <- function(id, globals) {
 
         risk_vals_list <- list()
         for (i in 1:length(nvec)) {
-          p_equiv <- nvec[i] / USpop
+          p_equiv <- nvec[i] / predictionPopSize
           risk_vals_I <- round(100 * (1 - (1 - p_equiv)**sizevec), 2)
           risk_vals_list[[i]] <- data.frame("nvec" = nvec[i], "svec" = sizevec, "risk" = risk_vals_I)
         }

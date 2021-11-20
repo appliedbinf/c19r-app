@@ -2,7 +2,8 @@
 % Please edit documentation in R/leaflet_inplace.R
 \name{setCircleMarkerStyle}
 \alias{setCircleMarkerStyle}
-\title{Title}
+\title{setCircleMarkerStyle
+from https://github.com/rstudio/leaflet/pull/598}
 \usage{
 setCircleMarkerStyle(
   map,
@@ -27,5 +28,6 @@ setCircleMarkerStyle(
 
 }
 \description{
-Title
+setCircleMarkerStyle
+from https://github.com/rstudio/leaflet/pull/598
 }
