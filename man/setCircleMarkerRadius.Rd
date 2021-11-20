@@ -2,16 +2,24 @@
 % Please edit documentation in R/leaflet_inplace.R
 \name{setCircleMarkerRadius}
 \alias{setCircleMarkerRadius}
-\title{Title}
+\title{setCircleMarkerRadius
+from https://github.com/rstudio/leaflet/pull/598}
 \usage{
 setCircleMarkerRadius(map, layerId, radius, data = leaflet::getMapData(map))
 }
 \arguments{
-\item{data}{}
+\item{map}{ID of map to edit}
+
+\item{layerId}{l=ID of layer to change}
+
+\item{radius}{Radius value}
+
+\item{data}{dataframe to apply}
 }
 \value{
 
 }
 \description{
-Title
+setCircleMarkerRadius
+from https://github.com/rstudio/leaflet/pull/598
 }

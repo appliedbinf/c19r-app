@@ -2,10 +2,6 @@
 #'
 #' @param ...
 #'
-#' @return
-#' @export
-#'
-#' @examples
 about_tabset <- function(...) {
   tabPanel(
     value = "about",

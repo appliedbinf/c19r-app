@@ -2,16 +2,26 @@
 % Please edit documentation in R/fct_quiz.R
 \name{build_results_table}
 \alias{build_results_table}
-\title{Title}
+\title{build_results_table}
 \usage{
 build_results_table(state, county, ans_20, ans_50, ans_100, ans_1000)
 }
 \arguments{
-\item{sel_state}{}
+\item{state}{State selection from dropdown}
+
+\item{county}{County selection from dropdown}
+
+\item{ans_20}{User answer for the event size = 20 slider}
+
+\item{ans_50}{User answer for the event size = 50 slider}
+
+\item{ans_100}{User answer for the event size = 100 slider}
+
+\item{ans_1000}{User answer for the event size = 1000 slider}
 }
 \value{
 
 }
 \description{
-Title
+build_results_table
 }

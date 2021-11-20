@@ -2,16 +2,16 @@
 % Please edit documentation in R/fct_map.R
 \name{maplabs}
 \alias{maplabs}
-\title{Title}
+\title{maplabs}
 \usage{
 maplabs(riskData)
 }
 \arguments{
-\item{riskData}{}
+\item{riskData}{Risk data df given to [leaflet::addPolygons()]}
 }
 \value{
-
+[htmltools::HTML] vector of map labels to user
 }
 \description{
-Title
+maplabs
 }

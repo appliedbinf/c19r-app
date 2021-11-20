@@ -1,18 +1,20 @@
 
-#' Title
+#' connect_to_db
 #'
-#' @param drv
-#' @param username
-#' @param password
-#' @param host
-#' @param port
-#' @param dbname
+#' @param drv DBI-compatible database driver
+#' @param username login username
+#' @param password login password
+#' @param host database hostname or IP
+#' @param port database port
+#' @param dbname name of database/table to use
 #' @param ...
 #'
-#' @return
-#' @export
+#' @description Connect to database and return pool object
+#'
+#' @return `pool::dbPool` obj`
 #'
 #' @examples
+#' connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
 connect_to_db <- function(drv = RMySQL::MySQL(),
                           username = Sys.getenv("MYSQL_USERNAME"),
                           password = Sys.getenv("MYSQL_PASSWORD"),
@@ -31,26 +33,25 @@ connect_to_db <- function(drv = RMySQL::MySQL(),
   )
 }
 
-#' feedback
+#' save_willingness
 #'
-#' @param source
-#' @param asc_bias
-#' @param event_size
-#' @param answer
-#' @param ip
-#' @param vacc_imm
-#' @param latitude
-#' @param longitude
-#' @param utm_source
-#' @param utm_medium
-#' @param utm_content
-#' @param utm_campaign
+#' @param source Where is willingness being be asked, e.g. "game" or "map"
+#' @param asc_bias Ascertainment bias when asked on map, set to -1 for other uses
+#' @param event_size Event size when asked on map, set to -1 for other uses
+#' @param answer Willingness answer, should come from the willingness scale
+#' @param ip User ip if known, typically from `globals$ip()``
+#' @param vacc_imm Vaccine immunity overlay setting if from map
+#' @param latitude User latitude, 0 if unknown.  Typically from `globals$latitude()`
+#' @param longitude User longitude, 0 if unknown.  Typically from `globals$longitude()`
+#' @param utm_source `utm_source=` value from query string or 'NULL'
+#' @param utm_medium `utm_medium=` value from query string or 'NULL'
+#' @param utm_content `utm_content=` value from query string or 'NULL'
+#' @param utm_campaign `utm_campaign=` value from query string or 'NULL'
 #'
-#' @description A fct function
+#' @description Save user willingness input from prompts on maps and quiz tab
 #'
-#' @return The return value, if any, from executing the function.
+#' @return NA
 #'
-#' @noRd
 save_willingness <- function(db,
                              source,
                              asc_bias,
@@ -94,14 +95,19 @@ save_willingness <- function(db,
   pool::poolReturn(conn)
 }
 
-#' Title
+#' str_or_unk
 #'
-#' @param obj
+#' @param obj object to voncert
 #'
-#' @return
-#' @export
+#' @description Convert null objects to "Unknown"
 #'
+#' @return converted object
+#' 
 #' @examples
+#' str_or_unk(NULL)
+#' "Unknown"
+#' str_or_unk("example")
+#' "example"
 str_or_unk <- function(obj) {
   if (is.null(obj)) {
     "Unknown"
@@ -110,15 +116,17 @@ str_or_unk <- function(obj) {
   }
 }
 
-#' Title
+#' make_resp_slider
 #'
-#' @param input
-#' @param label
+#' @param input `{shiny}` input id
+#' @param label label for input
+#'
+#' @description Create slider inputs for Risk Quik, range from 0-100%
 #'
 #' @return
-#' @export
 #'
 #' @examples
+#' make_resp_slider("slider_82", "")
 make_resp_slider <- function(input, label) {
   sliderInput(
     inputId = input,

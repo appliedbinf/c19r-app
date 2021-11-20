@@ -1,14 +1,13 @@
-### R functions
 # add in methods from https://github.com/rstudio/leaflet/pull/598
-#' Title
+#' setCircleMarkerRadius
+#' from https://github.com/rstudio/leaflet/pull/598
 #'
-#' @param map
-#' @param layerId
-#' @param radius
-#' @param data
+#' @param map ID of map to edit
+#' @param layerId l=ID of layer to change
+#' @param radius Radius value
+#' @param data dataframe to apply
 #'
 #' @return
-#' @export
 #'
 #' @examples
 setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapData(map)) {
@@ -20,7 +19,8 @@ setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapDa
   leaflet::invokeMethod(map, data, "setRadius", options$layerId, options$radius)
 }
 
-#' Title
+#' setCircleMarkerStyle
+#' from https://github.com/rstudio/leaflet/pull/598
 #'
 #' @param map
 #' @param layerId
@@ -37,7 +37,6 @@ setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapDa
 #' @param data
 #'
 #' @return
-#' @export
 #'
 #' @examples
 setCircleMarkerStyle <- function(map, layerId,
@@ -80,8 +79,8 @@ setCircleMarkerStyle <- function(map, layerId,
   leaflet::invokeMethod(map, data, "setStyle", "marker", layerId, style)
 }
 
-#' Title
-#'
+#' setShapeStyle
+#' from https://github.com/rstudio/leaflet/pull/598
 #' @param map
 #' @param data
 #' @param layerId
@@ -98,7 +97,6 @@ setCircleMarkerStyle <- function(map, layerId,
 #' @param options
 #'
 #' @return
-#' @export
 #'
 #' @examples
 setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
@@ -131,7 +129,8 @@ setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
 }
 
 
-#' Title
+#' setShapeLabel
+#' from https://github.com/rstudio/leaflet/pull/598
 #'
 #' @param map
 #' @param data
@@ -153,11 +152,6 @@ setShapeLabel <- function(map, data = leaflet::getMapData(map), layerId,
   )
   # evaluate all options
   options <- leaflet::evalFormula(options, data = data)
-  # make them the same length (by building a data.frame)
-  # options <- do.call(data.frame, c(options, list(stringsAsFactors=FALSE)))
-  # layerId <- options[[1]]
-  # label <- options[-1] # drop layer column
-  # message("invoke")
   # typo fixed in this line
   leaflet::invokeMethod(map, data, "setLabel", "shape", layerId, label)
 }

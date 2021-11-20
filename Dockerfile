@@ -37,6 +37,7 @@ RUN Rscript -e 'remotes::install_version("jsonlite",upgrade="never", version = "
 RUN Rscript -e 'remotes::install_version("RMySQL",upgrade="never", version = "0.10.22")'
 RUN Rscript -e 'remotes::install_version("data.table",upgrade="never", version = "1.13.6")'
 RUN Rscript -e 'remotes::install_version("pool",upgrade="never", version = "0.1.6")'
+RUN Rscript -e 'remotes::install_version("waiter",upgrade="never", version = "0.2.4")'
 
 RUN mkdir /build_zone
 ADD . /build_zone

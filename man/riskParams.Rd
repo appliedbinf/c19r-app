@@ -2,16 +2,16 @@
 % Please edit documentation in R/fct_map.R
 \name{riskParams}
 \alias{riskParams}
-\title{Title}
+\title{riskParams}
 \usage{
 riskParams(val)
 }
 \arguments{
-\item{val}{}
+\item{val}{Risk parameter to format}
 }
 \value{
-
+Formated risk paramter
 }
 \description{
-Title
+riskParams
 }

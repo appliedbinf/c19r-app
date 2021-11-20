@@ -1,6 +1,6 @@
 #' take_quiz_button UI Function
 #'
-#' @description A shiny Module.
+#' @description [shinyWidgets::actionBttn] to jump to quiz tab.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

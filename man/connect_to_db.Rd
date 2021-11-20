@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_feedback.R
 \name{connect_to_db}
 \alias{connect_to_db}
-\title{Title}
+\title{connect_to_db}
 \usage{
 connect_to_db(
   drv = RMySQL::MySQL(),
@@ -15,11 +15,26 @@ connect_to_db(
 )
 }
 \arguments{
+\item{drv}{DBI-compatible database driver}
+
+\item{username}{login username}
+
+\item{password}{login password}
+
+\item{host}{database hostname or IP}
+
+\item{port}{database port}
+
+\item{dbname}{name of database/table to use}
+
 \item{...}{}
 }
 \value{
-
+`pool::dbPool` obj`
 }
 \description{
-Title
+Connect to database and return pool object
+}
+\examples{
+connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
 }

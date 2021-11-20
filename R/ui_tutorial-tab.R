@@ -1,9 +1,5 @@
 #' tutorial_tab
 #'
-#' @return
-#' @export
-#'
-#' @examples
 tutorial_tab <- function() {
   tabPanel(
     id = "tuts",
