@@ -1,10 +1,9 @@
 
-#' Title
+#' Function to run on app start
 #'
 #' @return
 #' @export
 #'
-#' @examples
 loadDataOnStart <- function() {
   db <<- connect_to_db(db = "c19r")
   get_data()
@@ -31,15 +30,15 @@ timeout <- sever::sever_default(
   button_class = "warning"
 )
 
-#' Title
+#' Get data needed for app to function
 #'
 #' @return
 #' @export
 #'
-#' @examples
 get_data <- function() {
   TZ <<- "America/New_York"
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
+  county_geomV <<- sf::st_read(app_sys("map_data/geomUnitedStatesCV.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
   names(stateline) <- c("stname", "name", "geometry")
   current_fh <- list.files(app_sys("states_current/"), full.names = TRUE, pattern = "*.csv")[1]
@@ -71,4 +70,8 @@ get_data <- function() {
     dplyr::select(-NAME, -stname) %>%
     dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
+  usa_countiesV <<- vroom::vroom(app_sys('app/www/usa_risk_countiesV.csv')) %>%
+    dplyr::select(-NAME, -stname) %>%
+    dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
+  usa_countiesV <<- county_geomV %>% dplyr::left_join(usa_countiesV, by = c("GEOID" = "GEOID"))
 }

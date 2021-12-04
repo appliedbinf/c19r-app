@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils_shiny.R
 \name{get_data}
 \alias{get_data}
-\title{Title}
+\title{Get data needed for app to function}
 \usage{
 get_data()
 }
@@ -10,5 +10,5 @@ get_data()
 
 }
 \description{
-Title
+Get data needed for app to function
 }
