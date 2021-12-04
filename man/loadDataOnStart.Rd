@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils_shiny.R
 \name{loadDataOnStart}
 \alias{loadDataOnStart}
-\title{Title}
+\title{Function to run on app start}
 \usage{
 loadDataOnStart()
 }
@@ -10,5 +10,5 @@ loadDataOnStart()
 
 }
 \description{
-Title
+Function to run on app start
 }
