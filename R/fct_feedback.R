@@ -13,8 +13,9 @@
 #'
 #' @return `pool::dbPool` obj`
 #'
-#' @examples
+#' \dontrun{
 #' connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
+#' }
 connect_to_db <- function(drv = RMySQL::MySQL(),
                           username = Sys.getenv("MYSQL_USERNAME"),
                           password = Sys.getenv("MYSQL_PASSWORD"),
@@ -105,9 +106,7 @@ save_willingness <- function(db,
 #' 
 #' @examples
 #' str_or_unk(NULL)
-#' "Unknown"
 #' str_or_unk("example")
-#' "example"
 str_or_unk <- function(obj) {
   if (is.null(obj)) {
     "Unknown"
