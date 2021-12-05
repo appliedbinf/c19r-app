@@ -1,0 +1,82 @@
+---
+title: "Deploying COVID19 Risk Planner in production"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{deploying}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+
+# Setup
+
+## MySQL
+
+The application is compatible with (most) databases with a `{DBI}` interface.  It's been tested with MySQL and PostgreSQL.  The production application uses a hosted instance of Aurora (MySQL) on AWS RDS.  See below for the table schemaa.  You may wish to use a connection manager, such as [ProxySQL](https://proxysql.com/), to collate and proxy application instance connections to your Database server.   The application has been tested with ProxySQL v2.3.2.
+
+### Creating MySQL database and tables
+```{sql, eval=F}
+CREATE DATABASE `c19r` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+-- c19r.risk_game_results definition
+
+CREATE TABLE `risk_game_results` (
+  `GEOID` int(11) NOT NULL,
+  `data_ts` varchar(100) NOT NULL,
+  `pred_20` int(11) NOT NULL,
+  `pred_50` int(11) NOT NULL,
+  `pred_100` int(11) NOT NULL,
+  `pred_1000` int(11) NOT NULL,
+  `g_20` int(11) NOT NULL,
+  `g_50` int(11) NOT NULL,
+  `g_100` int(11) NOT NULL,
+  `g_1000` int(11) NOT NULL,
+  `ip` varchar(100) DEFAULT NULL,
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` float DEFAULT NULL,
+  `longitude` float DEFAULT NULL,
+  `utm_source` varchar(100) DEFAULT NULL,
+  `utm_medium` varchar(100) DEFAULT NULL,
+  `utm_content` varchar(100) DEFAULT NULL,
+  `utm_campaign` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- c19r.willingness definition
+
+CREATE TABLE `willingness` (
+  `source` varchar(100) NOT NULL,
+  `ts` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `asc_bias` int(11) NOT NULL,
+  `event_size` int(11) NOT NULL,
+  `answer` varchar(40) NOT NULL,
+  `ip` varchar(100) DEFAULT NULL,
+  `data_ts` varchar(100) DEFAULT NULL,
+  `vacc_imm` varchar(100) DEFAULT NULL,
+  `latitude` float DEFAULT NULL,
+  `longitude` float DEFAULT NULL,
+  `utm_source` varchar(100) DEFAULT NULL,
+  `utm_medium` varchar(100) DEFAULT NULL,
+  `utm_content` varchar(100) DEFAULT NULL,
+  `utm_campaign` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+```
+
+## Creating up to date data files
+
+```{bash, eval=FALSE}
+mkdir risk_data
+docker pull appliedbioinformaticslab/c19r:latest
+docker run -v ./risk_data:/risk_data appliedbioinformaticslab/c19r R -e "c19rdata::create_c19r_data(output_prefix='/risk_data')"
+
+```
