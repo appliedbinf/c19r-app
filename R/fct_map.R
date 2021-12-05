@@ -4,6 +4,11 @@
 #'
 #' @return Adjusted p-value
 #'
+#' @examples
+#' pcrit(c(10,100,1000))
+#' \dontrun{
+#' pcrit("ten")
+#' }
 pcrit <- function(x) {
   0.01 / x
 }
@@ -29,6 +34,8 @@ calc_risk <- function(I, n, population, scaling_factor = 10 / 14) {
 #' @param nice log10 ingrements to try to round to nearest
 #'
 #' @return Rounded number
+#' @examples 
+#' roundUpNice(124207)
 roundUpNice <- function(x, nice = c(1, 2, 4, 5, 6, 8, 10)) {
   if (length(x) != 1) stop("'x' must be of length 1")
   10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
@@ -52,7 +59,7 @@ maplabs <- function(riskData) {
   labels <- paste0(
     "<strong>", paste0(riskData$NAME, ", ", riskData$stname), "</strong><br/>",
     "Current Risk Level: <b>", riskData$risk, ifelse(riskData$risk == "No data", "", "&#37;"), "</b><br/>",
-    "State-level immunity via vaccination: <strong>", round(riskData$pct_fully_vacc, 1), "%</strong></b><br/>",
+    "Immunity via vaccination: <strong>", round(riskData$pct_fully_vacc, 1), "%</strong></b><br/>",
     "Updated: ", riskData$updated,
     ""
   ) %>% lapply(htmltools::HTML)
