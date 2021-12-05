@@ -208,7 +208,7 @@ mod_usa_real_time_server <- function(id, globals) {
 
     output$dl_dd <- downloadHandler(
       filename = function() {
-        paste("Predicted-risk-", states_dd, "-Event_size-", input$event_dd, "-", lubridate::today(), ".png", sep = "")
+        paste("Predicted-risk-", input$states_dd, "-Event_size-", input$event_dd, "-", lubridate::today(), ".png", sep = "")
       },
       content = function(file) {
         ggplot2::ggsave(file, plot = dd_plot, width = 12, height = 12, units = "in")
