@@ -17,3 +17,6 @@ Rounded number
 \description{
 roundUpNice
 }
+\examples{
+roundUpNice(124207)
+}

@@ -17,7 +17,5 @@ Convert null objects to "Unknown"
 }
 \examples{
 str_or_unk(NULL)
-"Unknown"
 str_or_unk("example")
-"example"
 }
