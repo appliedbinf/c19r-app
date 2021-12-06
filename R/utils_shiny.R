@@ -81,7 +81,7 @@ get_data <- function() {
     EXTERNAL_UPDATES <- TRUE
 
 
-  current_fh <- list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv")[1]
+  current_fh <- tail(list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv"), 1)
   
   if (is.na(current_fh)){
     current_ts <<- lubridate::now(tzone = TZ) - lubridate::hours(2.5)
