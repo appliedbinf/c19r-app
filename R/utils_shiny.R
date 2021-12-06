@@ -6,6 +6,9 @@
 #'
 loadDataOnStart <- function() {
   db <<- connect_to_db(db = "c19r")
+  county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
+  stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
+  names(stateline) <<- c("stname", "name", "geometry")
   get_data()
 }
 
@@ -31,6 +34,13 @@ timeout <- sever::sever_default(
 )
 
 #' Get data needed for app to function
+#'
+#' While this function has no arguments, there are
+#' environment variables that are import to its functioning
+#'
+#' C19R_CASES_DIR Alternative path to NYT COVID19 case data
+#' C19R_RISK_DATA Alternative path to pre-computed risk data
+#' C19R_EXTERNAL_UPDATES Prevent app from update NYT case data
 #'
 #' @return
 #' @export
@@ -61,11 +71,16 @@ get_data <- function() {
       )
     )
   }
+  
+  # If EXTERNAL_UPDATES is TRUE, do not download new data file using Shiny
+  EXTERNAL_UPDATES <- Sys.getenv("C19R_EXTERNAL_UPDATES", FALSE)
+
+  if (EXTERNAL_UPDATES != FALSE &
+      EXTERNAL_UPDATES %in% c("true", "TRUE", "1")
+      )
+    EXTERNAL_UPDATES <- TRUE
 
 
-  county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
-  stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
-  names(stateline) <- c("stname", "name", "geometry")
   current_fh <- list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv")[1]
   
   if (is.na(current_fh)){
@@ -77,7 +92,9 @@ get_data <- function() {
   
   
   max_offset <<- lubridate::hours(2)
-  if (lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)) {
+  if (isTRUE(EXTERNAL_UPDATES) &
+      lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)
+      ) {
     url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
     new_fh_base <- lubridate::now(tzone = TZ) %>% format("%Y%m%d_%H%M%S")
     new_fh <- glue::glue("{dirname(current_fh)}/{new_fh_base}.csv")
