@@ -77,6 +77,30 @@ CREATE TABLE `willingness` (
 ```{bash, eval=FALSE}
 mkdir risk_data
 docker pull appliedbioinformaticslab/c19r:latest
-docker run -v ./risk_data:/risk_data appliedbioinformaticslab/c19r R -e "c19rdata::create_c19r_data(output_prefix='/risk_data')"
+docker run -v $PWD/risk_data:/risk_data appliedbioinformaticslab/c19r R -e "c19rdata::create_c19r_data(output_prefix='/risk_data')"
+
+```
+
+
+## If using an external directory for NYT case data
+
+```{bash, eval=FALSE}
+base="/path/to/custom/dir"
+fname=$(date +%Y%m%d_%H%M%S) 
+wget https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv \
+	-O "${base}/states_current/${fname}.csv" \
+	-a "${base}/current.log"; 
+```
+
+# Deploying
+```{base, eval=F}
+docker run -d \
+  -p 80:80 \
+  -v $PWD/risk_data:/risk_data \
+  -e C19R_RISK_DATA="/risk_data/usa_risk_counties.csv" 
+  -e MYSQL_USERNAME="admin" \
+  -e MYSQL_PASSWORD="password" \
+  -e MYSQL_HOST="mysql.local" \
+  appliedbioinformaticslab/c19r
 
 ```
