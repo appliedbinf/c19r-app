@@ -39,8 +39,7 @@ Imports:
     pool,
     jsonlite,
     data.table,
-    RMySQL,
-    c19rdata
+    RMySQL
 Remotes: github::appliedbinf/c19r-data-processing
 Encoding: UTF-8
 LazyData: true
