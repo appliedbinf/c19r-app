@@ -39,8 +39,10 @@ Imports:
     pool,
     jsonlite,
     data.table,
-    RMySQL
-Remotes: github::appliedbinf/c19r-data-processing
+    RMySQL,
+    waiter,
+    c19rdata
+Remotes: github::appliedbinf/c19rdata
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
