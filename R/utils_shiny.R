@@ -81,8 +81,8 @@ get_data <- function() {
 
   current_fh <- utils::tail(list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv"), 1)
   
-  if (is.na(current_fh)){
-    current_ts <<- lubridate::now(tzone = TZ) - lubridate::hours(2.5)
+  if (rlang::is_empty(current_fh)){
+    current_ts <<- lubridate::now(tzone = TZ) - lubridate::hours(3)
   } else {
     ts_str <- gsub(".csv", "", basename(current_fh), fixed = T)
     current_ts <<- lubridate::ymd_hms(ts_str)
@@ -90,12 +90,12 @@ get_data <- function() {
   
   
   max_offset <<- lubridate::hours(2)
-  if (isTRUE(EXTERNAL_UPDATES) &
+  if (!isTRUE(EXTERNAL_UPDATES) &
       lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)
       ) {
     url <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
     new_fh_base <- lubridate::now(tzone = TZ) %>% format("%Y%m%d_%H%M%S")
-    new_fh <- glue::glue("{dirname(current_fh)}/{new_fh_base}.csv")
+    new_fh <- glue::glue("{CASES_DIR}/{new_fh_base}.csv")
     utils::download.file(url = url, destfile = new_fh)
     unlink(current_fh)
     current_fh <- new_fh

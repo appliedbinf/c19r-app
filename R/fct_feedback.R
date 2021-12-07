@@ -13,7 +13,7 @@
 #'
 #' @return `pool::dbPool` obj`
 #'
-#' \donttest{
+#' \dontrun{
 #' connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
 #' }
 connect_to_db <- function(drv = RMySQL::MySQL(),
