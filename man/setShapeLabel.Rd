@@ -14,7 +14,15 @@ setShapeLabel(
 )
 }
 \arguments{
-\item{options}{}
+\item{map}{Leaflet map object}
+
+\item{data}{Leaflet map data}
+
+\item{layerId}{Layer to manipulate}
+
+\item{label}{Labels to add}
+
+\item{options}{Options to add}
 }
 \value{
 

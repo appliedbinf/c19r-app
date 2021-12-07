@@ -22,7 +22,31 @@ setCircleMarkerStyle(
 )
 }
 \arguments{
-\item{data}{}
+\item{map}{Leaflet map object}
+
+\item{layerId}{Layer id}
+
+\item{radius}{Cicle radius}
+
+\item{stroke}{Stoke}
+
+\item{color}{Stroke color}
+
+\item{weight}{Stroke weight (width)}
+
+\item{opacity}{Stroke opacity}
+
+\item{fill}{Circle fill}
+
+\item{fillColor}{Circle fill color}
+
+\item{fillOpacity}{Circle fill opacity}
+
+\item{dashArray}{NULL}
+
+\item{options}{Leaflet options}
+
+\item{data}{Leaflet map data}
 }
 \value{
 
