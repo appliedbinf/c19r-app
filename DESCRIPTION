@@ -2,15 +2,15 @@ Package: covid19RiskPlanner
 Title: COVID-19 Event Risk Assessment Planning Tool
 Version: 1.0.2
 Authors@R: c(
-    person('Aroon T. ', 'Chande', email = 'achande@ihrc.com', role = c('cre', 'aut')),
-    person('Joshua S.', 'Weitz', email = 'jsweitz@gatech.edu', role = c('cph', 'ctb')),
-    person('Stephen J.', 'Beckett', email = 'stephen.beckett@biology.gatech.edu', role = c('aut')),
-    person('Clio', 'Andris', email = 'clio@gatech.edu', role = c('ctb')),
-    person('Lavanya', 'Rishishwar', email = 'lrishishwar@ihrc.com', role = c('ctb')),
-    person('Freyja A.', 'Brandel-Tanis', email = 'achande@ihrc.com', role = c('aut')),
+    person('Aroon', 'Chande', 'T.', email = 'achande@ihrc.com', role = c('cre', 'aut')),
+    person('Joshua', 'Weitz', 'S.', email = 'jsweitz@gatech.edu', role = c('cph', 'aut')),
+    person('Stephen', 'Beckett', 'J.', email = 'stephen.beckett@biology.gatech.edu', role = c('aut')),
+    person('Clio', 'Andris', email = 'clio@gatech.edu', role = c('aut')),
+    person('Lavanya', 'Rishishwar', email = 'lrishishwar@ihrc.com', role = c('aut')),
+    person('Freyja', 'Brandel-Tanis', 'A.', email = 'achande@ihrc.com', role = c('aut')),
     person('Seohla', 'Lee', email = 'achande@ihrc.com', role = c('aut')),
-    person('Quan', 'Nguyen', email = 'qnguyen83@gatech.edu', role = c('ctb')),
-    person('Mallory', 'Harris', email = 'Mharris9@stanford.edu', role = c('ctb'))
+    person('Quan', 'Nguyen', email = 'qnguyen83@gatech.edu', role = c('aut')),
+    person('Mallory', 'Harris', email = 'Mharris9@stanford.edu', role = c('aut'))
     )
 Description: Visualize the risk estimated risk (0-100%) that at 
     least 1 COVID-19 positive individual will be present at an event 
