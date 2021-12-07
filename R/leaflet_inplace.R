@@ -9,7 +9,6 @@
 #'
 #' @return
 #'
-#' @examples
 setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapData(map)) {
   options <- list(layerId = layerId, radius = radius)
   # evaluate all options
@@ -22,23 +21,22 @@ setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapDa
 #' setCircleMarkerStyle
 #' from https://github.com/rstudio/leaflet/pull/598
 #'
-#' @param map
-#' @param layerId
-#' @param radius
-#' @param stroke
-#' @param color
-#' @param weight
-#' @param opacity
-#' @param fill
-#' @param fillColor
-#' @param fillOpacity
-#' @param dashArray
-#' @param options
-#' @param data
+#' @param map Leaflet map object
+#' @param layerId Layer id
+#' @param radius Cicle radius
+#' @param stroke Stoke 
+#' @param color Stroke color 
+#' @param weight Stroke weight (width)
+#' @param opacity Stroke opacity
+#' @param fill Circle fill 
+#' @param fillColor Circle fill color
+#' @param fillOpacity Circle fill opacity
+#' @param dashArray NULL
+#' @param options Leaflet options
+#' @param data Leaflet map data
 #'
 #' @return
 #'
-#' @examples
 setCircleMarkerStyle <- function(map, layerId,
                                  radius = NULL,
                                  stroke = NULL,
@@ -81,24 +79,23 @@ setCircleMarkerStyle <- function(map, layerId,
 
 #' setShapeStyle
 #' from https://github.com/rstudio/leaflet/pull/598
-#' @param map
-#' @param data
-#' @param layerId
-#' @param stroke
-#' @param color
-#' @param weight
-#' @param opacity
-#' @param fill
-#' @param fillColor
-#' @param fillOpacity
-#' @param dashArray
-#' @param smoothFactor
-#' @param noClip
-#' @param options
+#' @param map Leaflet map object
+#' @param data Leaflet map data
+#' @param layerId Layer to manipulate
+#' @param stroke Stroke (bool)
+#' @param color Shape color
+#' @param weight Stroke weight (line width)
+#' @param opacity Stroke opacity
+#' @param fill Shape fill (bool)
+#' @param fillColor Fill color
+#' @param fillOpacity Fill opacity
+#' @param dashArray NULL
+#' @param smoothFactor Should shapes and colors be smooth
+#' @param noClip Allow clipping
+#' @param options Leaflet options
 #'
 #' @return
 #'
-#' @examples
 setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
                           stroke = NULL, color = NULL,
                           weight = NULL, opacity = NULL,
@@ -132,16 +129,14 @@ setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
 #' setShapeLabel
 #' from https://github.com/rstudio/leaflet/pull/598
 #'
-#' @param map
-#' @param data
-#' @param layerId
-#' @param label
-#' @param options
+#' @param map Leaflet map object
+#' @param data Leaflet map data
+#' @param layerId Layer to manipulate
+#' @param label Labels to add
+#' @param options Options to add
 #'
 #' @return
-#' @export
 #'
-#' @examples
 setShapeLabel <- function(map, data = leaflet::getMapData(map), layerId,
                           label = NULL,
                           options = NULL) {

@@ -23,7 +23,33 @@ setShapeStyle(
 )
 }
 \arguments{
-\item{options}{}
+\item{map}{Leaflet map object}
+
+\item{data}{Leaflet map data}
+
+\item{layerId}{Layer to manipulate}
+
+\item{stroke}{Stroke (bool)}
+
+\item{color}{Shape color}
+
+\item{weight}{Stroke weight (line width)}
+
+\item{opacity}{Stroke opacity}
+
+\item{fill}{Shape fill (bool)}
+
+\item{fillColor}{Fill color}
+
+\item{fillOpacity}{Fill opacity}
+
+\item{dashArray}{NULL}
+
+\item{smoothFactor}{Should shapes and colors be smooth}
+
+\item{noClip}{Allow clipping}
+
+\item{options}{Leaflet options}
 }
 \value{
 
