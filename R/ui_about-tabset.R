@@ -1,6 +1,6 @@
 #' about_tabset
 #'
-#' @param ...
+#' @param ... Capture (and ignore) args
 #'
 about_tabset <- function(...) {
   tabPanel(

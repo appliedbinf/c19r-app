@@ -1,11 +1,10 @@
 
 #' Function to run on app start
 #'
-#' @return
 #' @export
 #'
 loadDataOnStart <- function() {
-  db <<- connect_to_db(db = "c19r")
+  db <<- connect_to_db(dbname = "c19r")
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
   names(stateline) <<- c("stname", "name", "geometry")
@@ -42,7 +41,6 @@ timeout <- sever::sever_default(
 #' C19R_RISK_DATA Alternative path to pre-computed risk data
 #' C19R_EXTERNAL_UPDATES Prevent app from update NYT case data
 #'
-#' @return
 #' @export
 #'
 get_data <- function() {
@@ -81,7 +79,7 @@ get_data <- function() {
     EXTERNAL_UPDATES <- TRUE
 
 
-  current_fh <- tail(list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv"), 1)
+  current_fh <- utils::tail(list.files(CASES_DIR, full.names = TRUE, pattern = "*.csv"), 1)
   
   if (is.na(current_fh)){
     current_ts <<- lubridate::now(tzone = TZ) - lubridate::hours(2.5)
@@ -102,23 +100,31 @@ get_data <- function() {
     unlink(current_fh)
     current_fh <- new_fh
   }
+  
   state_data <<- vroom::vroom(current_fh)
   states <<- unique(state_data$state)
   current_time <<- daily_time <<- Sys.Date()
   cur_date <- lubridate::ymd(Sys.Date()) - 1
   past_date <- lubridate::ymd(cur_date) - 14
-  states_current <<- subset(state_data, lubridate::ymd(date) == cur_date) %>% dplyr::arrange(state)
-  states_historic <<- subset(state_data, lubridate::ymd(date) == past_date) %>% dplyr::arrange(state)
+  
+  states_current <<- subset(state_data, lubridate::ymd(date) == cur_date) %>%
+    dplyr::arrange(state)
+  states_historic <<- subset(state_data, lubridate::ymd(date) == past_date) %>%
+    dplyr::arrange(state)
+  
   state_pops <<- vroom::vroom(app_sys("map_data/state_pops.tsv"))
   state_data <<- states_current %>%
     dplyr::select(state, cases) %>%
     dplyr::arrange(state)
+  
   state_data$C_i <<- round((states_current$cases - states_historic$cases) * 10 / 14)
   state_data$state <<- name2abbr[state_data$state]
   state_data <<- state_data %>% tidyr::drop_na()
+  
   usa_counties <<- vroom::vroom(RISK_DATA) %>%
     dplyr::select(-NAME, -stname) %>%
     dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
+  
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
 
 }

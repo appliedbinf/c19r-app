@@ -1,3 +1,6 @@
+#' @importFrom rlang :=
+NULL
+
 #' usa_risk_map UI Function
 #'
 #' @description US risk map tab.

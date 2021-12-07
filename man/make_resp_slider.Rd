@@ -12,7 +12,7 @@ make_resp_slider(input, label)
 \item{label}{label for input}
 }
 \value{
-
+Slider input
 }
 \description{
 Create slider inputs for Risk Quik, range from 0-100%

@@ -62,9 +62,6 @@ save_quiz_results(
 
 \item{utm_campaign}{`utm_campaign=` value from query string or 'NULL'}
 }
-\value{
-
-}
 \description{
 save_quiz_results
 }

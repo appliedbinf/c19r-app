@@ -7,13 +7,13 @@
 #' @param host database hostname or IP
 #' @param port database port
 #' @param dbname name of database/table to use
-#' @param ...
+#' @param ... Additional `{poo::dbPool}` options
 #'
 #' @description Connect to database and return pool object
 #'
 #' @return `pool::dbPool` obj`
 #'
-#' \dontrun{
+#' \donttest{
 #' connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
 #' }
 connect_to_db <- function(drv = RMySQL::MySQL(),
@@ -36,6 +36,7 @@ connect_to_db <- function(drv = RMySQL::MySQL(),
 
 #' save_willingness
 #'
+#' @param db Database or pool object
 #' @param source Where is willingness being be asked, e.g. "game" or "map"
 #' @param asc_bias Ascertainment bias when asked on map, set to -1 for other uses
 #' @param event_size Event size when asked on map, set to -1 for other uses
@@ -51,7 +52,6 @@ connect_to_db <- function(drv = RMySQL::MySQL(),
 #'
 #' @description Save user willingness input from prompts on maps and quiz tab
 #'
-#' @return NA
 #'
 save_willingness <- function(db,
                              source,
@@ -122,7 +122,7 @@ str_or_unk <- function(obj) {
 #'
 #' @description Create slider inputs for Risk Quik, range from 0-100%
 #'
-#' @return
+#' @return Slider input
 #'
 #' @examples
 #' make_resp_slider("slider_82", "")

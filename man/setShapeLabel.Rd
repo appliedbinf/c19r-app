@@ -24,9 +24,6 @@ setShapeLabel(
 
 \item{options}{Options to add}
 }
-\value{
-
-}
 \description{
 setShapeLabel
 from https://github.com/rstudio/leaflet/pull/598

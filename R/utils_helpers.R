@@ -1,7 +1,6 @@
 
 #' close_connections
 #' Close any hung DBI connections
-#' @return
 #' @export
 #'
 close_connections <- function() {

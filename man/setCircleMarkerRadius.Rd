@@ -16,9 +16,6 @@ setCircleMarkerRadius(map, layerId, radius, data = leaflet::getMapData(map))
 
 \item{data}{dataframe to apply}
 }
-\value{
-
-}
 \description{
 setCircleMarkerRadius
 from https://github.com/rstudio/leaflet/pull/598

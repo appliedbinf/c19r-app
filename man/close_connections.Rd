@@ -7,9 +7,6 @@ Close any hung DBI connections}
 \usage{
 close_connections()
 }
-\value{
-
-}
 \description{
 close_connections
 Close any hung DBI connections

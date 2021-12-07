@@ -7,7 +7,6 @@
 #' @param ans_100 User answer for the event size = 100 slider
 #' @param ans_1000 User answer for the event size = 1000 slider
 #'
-#' @return
 #'
 build_results_table <- function(state, county, ans_20, 
                                 ans_50, ans_100, ans_1000) {
@@ -75,7 +74,6 @@ build_results_table <- function(state, county, ans_20,
 #' @param utm_content `utm_content=` value from query string or 'NULL'
 #' @param utm_campaign `utm_campaign=` value from query string or 'NULL'
 #'
-#' @return
 #'
 save_quiz_results <- function(db,
                               geoid,

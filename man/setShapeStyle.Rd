@@ -51,9 +51,6 @@ setShapeStyle(
 
 \item{options}{Leaflet options}
 }
-\value{
-
-}
 \description{
 setShapeStyle
 from https://github.com/rstudio/leaflet/pull/598
