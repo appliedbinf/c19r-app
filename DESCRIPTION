@@ -58,9 +58,9 @@ Remotes: github::appliedbinf/c19rdata
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-URL: https://github.com/ar0ch/c19r-app,
+URL: https://github.com/appliedbinf/c19r-app,
     https://appliedbinf.github.io/c19r-app
-BugReports: https://github.com/ar0ch/c19r-app/issues
+BugReports: https://github.com/appliedbinf/c19r-app/issues
 Suggests: 
     rmarkdown,
     knitr,
