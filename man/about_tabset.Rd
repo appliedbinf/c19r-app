@@ -7,7 +7,7 @@
 about_tabset(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{Capture (and ignore) args}
 }
 \description{
 about_tabset
