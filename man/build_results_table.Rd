@@ -19,9 +19,6 @@ build_results_table(state, county, ans_20, ans_50, ans_100, ans_1000)
 
 \item{ans_1000}{User answer for the event size = 1000 slider}
 }
-\value{
-
-}
 \description{
 build_results_table
 }

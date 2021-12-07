@@ -6,9 +6,6 @@
 \usage{
 loadDataOnStart()
 }
-\value{
-
-}
 \description{
 Function to run on app start
 }

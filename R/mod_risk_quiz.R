@@ -396,7 +396,7 @@ mod_risk_quiz_server <- function(id, globals) {
           p(acc_text),
           renderTable(results_table, align = "c", width = "100%", ),
           tags$a(
-            href = URLencode(tweet_url),
+            href = utils::URLencode(tweet_url),
             tags$i("Tweet your score", class = "fab fa-twitter"),
             class = "twitter-share-button twitter-hashtag-button",
             target = "_blank"

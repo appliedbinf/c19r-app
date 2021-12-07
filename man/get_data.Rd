@@ -6,9 +6,6 @@
 \usage{
 get_data()
 }
-\value{
-
-}
 \description{
 While this function has no arguments, there are
 environment variables that are import to its functioning

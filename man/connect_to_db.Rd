@@ -27,7 +27,7 @@ connect_to_db(
 
 \item{dbname}{name of database/table to use}
 
-\item{...}{}
+\item{...}{Additional `{poo::dbPool}` options}
 }
 \value{
 `pool::dbPool` obj`

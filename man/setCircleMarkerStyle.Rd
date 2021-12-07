@@ -48,9 +48,6 @@ setCircleMarkerStyle(
 
 \item{data}{Leaflet map data}
 }
-\value{
-
-}
 \description{
 setCircleMarkerStyle
 from https://github.com/rstudio/leaflet/pull/598

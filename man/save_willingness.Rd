@@ -21,6 +21,8 @@ save_willingness(
 )
 }
 \arguments{
+\item{db}{Database or pool object}
+
 \item{source}{Where is willingness being be asked, e.g. "game" or "map"}
 
 \item{asc_bias}{Ascertainment bias when asked on map, set to -1 for other uses}
@@ -44,9 +46,6 @@ save_willingness(
 \item{utm_content}{`utm_content=` value from query string or 'NULL'}
 
 \item{utm_campaign}{`utm_campaign=` value from query string or 'NULL'}
-}
-\value{
-NA
 }
 \description{
 Save user willingness input from prompts on maps and quiz tab

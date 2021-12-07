@@ -7,7 +7,6 @@
 #' @param radius Radius value
 #' @param data dataframe to apply
 #'
-#' @return
 #'
 setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapData(map)) {
   options <- list(layerId = layerId, radius = radius)
@@ -35,7 +34,6 @@ setCircleMarkerRadius <- function(map, layerId, radius, data = leaflet::getMapDa
 #' @param options Leaflet options
 #' @param data Leaflet map data
 #'
-#' @return
 #'
 setCircleMarkerStyle <- function(map, layerId,
                                  radius = NULL,
@@ -94,7 +92,6 @@ setCircleMarkerStyle <- function(map, layerId,
 #' @param noClip Allow clipping
 #' @param options Leaflet options
 #'
-#' @return
 #'
 setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
                           stroke = NULL, color = NULL,
@@ -135,7 +132,6 @@ setShapeStyle <- function(map, data = leaflet::getMapData(map), layerId,
 #' @param label Labels to add
 #' @param options Options to add
 #'
-#' @return
 #'
 setShapeLabel <- function(map, data = leaflet::getMapData(map), layerId,
                           label = NULL,
