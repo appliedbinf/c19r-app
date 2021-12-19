@@ -33,13 +33,13 @@ about_tabset <- function(...) {
         fluid = TRUE,
         mainPanel(
           div(style = "height: 15px;"),
-          tags$img(src = "twitter_image_031020.jpg"),
+          tags$img(src = "www/twitter_image_031020.jpg"),
           tags$br(),
           div(style = "height: 15px;", hr()),
-          tags$img(src = "figevent_checker_apr30.png"),
+          tags$img(src = "www/figevent_checker_apr30.png"),
           tags$br(),
           div(style = "height: 15px;", hr()),
-          tags$img(src = "figevent_checker_georgia_042720.jpg  ")
+          tags$img(src = "www/figevent_checker_georgia_042720.jpg  ")
         )
       )
     )

@@ -21,12 +21,23 @@ mod_usa_risk_map_ui <- function(id) {
         title = "USA Risk estimates by county",
         can_collapse = F,
         class = "col-sm-12 col-xs-12 col-md-3 well fake-sidebar",
-        body = div(
+        body = div(style="font-size: larger;",
           HTML(
             paste0(
-              "<div>This map shows the risk level of attending an event, given the event size and location.</div>",
-              "<div class='hidden-sm hidden-xs'>You can reduce the risk that one case becomes many by wearing a mask, distancing, and gathering outdoors in smaller groups. For vaccinated individuals, preventative steps can reduce the risk of breakthrough infections that spread to vulnerable individuals. For unvaccinated individuals, preventative steps before vaccination can reduce the risk of breakthrough disease, including potentially severe cases, hospitalizations, and fatalities.</div>",
-              "<div>The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.</div>",
+              "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px))} .icon-grid img{width: 100%;}</style>",
+              "<div>This map shows the risk level of attending an event, given the event size and location.  ",
+              "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.</div>",
+              "<div>You can reduce the risk that one case becomes many by: </div>",
+              "<div><div class='icon-grid'>",
+              "    <div ><img src='www/icons/100w/mask.png' alt='Wear a mask'></div>",
+              "    <div ><img src='www/icons/100w/test.png' alt='Get tested'></div>",
+              "    <div ><img src='www/icons/100w/vaccinate.png' alt='Get vaccinated'></div>",
+              "    <div ><img src='www/icons/100w/distance.png' alt='Social distance'></div>",
+              "    <div ><img src='www/icons/100w/outside.png'' alt='Meet outside...'></div>",
+              "    <div ><img src='www/icons/100w/ventilate.png' alt='..or ventilate'></div>",
+              "</div></div>",
+              "</br>",
+              "</br>",
               "<div>Choose an event size and ascertainment bias below</div>"
             )
           ),
@@ -62,12 +73,14 @@ mod_usa_risk_map_ui <- function(id) {
           mod_show_data_ui("to_data"),
           HTML(
             paste0(
-              "<details>",
-              "<summary>Learn about ascertainment bias and vaccination levels</summary>",
+              "</br><a data-toggle='collapse' href='#learnmore' role='button' aria-expanded='false' aria-controls='learnmore'>",
+              "Learn about ascertainment bias and vaccination levels",
+              "</a>",
+              "<div class='collapse' id='learnmore'>",
               "Based on seroprevalence data and increases in testing, by default we assume there are four times more cases than are being reported (4:1 ascertainment bias). In places with less testing availability, that bias may be higher. We are evaluating the inclusion of lower ascertainment biases based on increased testing.",
               "<br/><br/>",
               "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing state-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series).",
-              "</details>"
+              "</div>"
             )
           ),
           fluidRow(
