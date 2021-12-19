@@ -53,7 +53,8 @@ Imports:
     data.table,
     RMySQL,
     waiter,
-    c19rdata
+    c19rdata,
+    pkgload
 Remotes: github::appliedbinf/c19rdata
 Encoding: UTF-8
 LazyData: true
