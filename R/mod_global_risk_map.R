@@ -37,8 +37,8 @@ mod_global_risk_map_ui <- function(id) {
         shinyWidgets::awesomeRadio(
           inputId = ns("global_asc_bias"),
           label = "Select Ascertainment Bias",
-          choices = c("3", "5"),
-          selected = "5",
+          choices = c("2", "3", "5"),
+          selected = "3",
           status = "warning",
           inline = T
         )
