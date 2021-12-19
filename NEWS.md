@@ -1,6 +1,11 @@
-# covid19RiskPlanner Unreleased
+# covid19RiskPlanner 1.0.3
 
-* Documentation updates
+* Documentation updates and pkgdown site
+* Add action icons to replace text on US map tab
+* Expand EU ascertainment bias to 2, 3, and 5
+* Fix for NYT data loading when folder is empty
+* Update imports
+* Start using c19rdata library to init risk info
 
 
 # covid19RiskPlanner 1.0.2
