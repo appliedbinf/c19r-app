@@ -58,7 +58,7 @@ mod_usa_risk_map_ui <- function(id) {
           ),
           shinyWidgets::awesomeRadio(
             inputId = ns("imm_lvl"),
-            label = "Focus on states with immunity via full vaccination less than:",
+            label = "Focus on counties with immunity via full vaccination less than:",
             choices = c(
               "Off" = 0,
               "45%" = 45,
@@ -79,7 +79,7 @@ mod_usa_risk_map_ui <- function(id) {
               "<div class='collapse' id='learnmore'>",
               "Based on seroprevalence data and increases in testing, by default we assume there are four times more cases than are being reported (4:1 ascertainment bias). In places with less testing availability, that bias may be higher. We are evaluating the inclusion of lower ascertainment biases based on increased testing.",
               "<br/><br/>",
-              "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing state-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series).",
+              "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing county-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series).",
               "</div>"
             )
           ),
