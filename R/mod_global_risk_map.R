@@ -18,12 +18,22 @@ mod_global_risk_map_ui <- function(id) {
         width = 3,
         HTML(
           paste0(
-            "<p>This map shows the risk level of attending events of different sizes at within-country resolution.",
-            "<br/><br/>You can reduce the risk that one case becomes many by wearing a mask, distancing, and gathering outdoors in smaller groups. For vaccinated individuals, preventative steps can reduce the risk of breakthrough infections that spread to vulnerable individuals. For unvaccinated individuals, preventative steps before vaccination can reduce the risk of breakthrough disease, including potentially severe cases, hospitalizations, and fatalities.<br/><br/>",
-            "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a NUTS-3 level area (County, Local Authority, Council, District), given the size of the event.",
-            "<br/><br/>", "Based on seroprevalence data and increases in testing, by default we assume there are five times more cases than are being reported (5:1 ascertainment bias). In places with less testing availability, that bias may be higher. We are evaluating the inclusion of lower ascertainment biases based on increased testing.",
-            "<br/><br/>",
-            "Choose an event size and ascertainment bias below.</p>"
+            "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px))} .icon-grid img{width: 100%;}</style>",
+            "<div>This map shows the risk level of attending an event, given the event size and location.  ",
+            "</br>",
+            "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a NUTS-3 level area (County, Local Authority, Council, District), given the size of the event.</div>",
+            "</br>",
+            "<div>You can reduce the risk that one case becomes many by: </div>",
+            "<div><div class='icon-grid'>",
+            "    <div ><img src='www/icons/mask.png' alt='Wear a mask'></div>",
+            "    <div ><img src='www/icons/test.png' alt='Get tested'></div>",
+            "    <div ><img src='www/icons/vaccinate.png' alt='Get vaccinated'></div>",
+            "    <div ><img src='www/icons/distance.png' alt='Social distance'></div>",
+            "    <div ><img src='www/icons/outside.png'' alt='Meet outside...'></div>",
+            "    <div ><img src='www/icons/ventilate.png' alt='..or ventilate'></div>",
+            "</div></div>",
+            "</br>",
+            "<div>Choose an event size and ascertainment bias below</div>"
           )
         ),
         mod_show_data_ui("to_data"),

@@ -21,12 +21,15 @@ mod_usa_risk_map_ui <- function(id) {
         title = "USA Risk estimates by county",
         can_collapse = F,
         class = "col-sm-12 col-xs-12 col-md-3 well fake-sidebar",
-        body = div(style="font-size: larger;",
+        body = div(
+          # style="font-size: larger;",
           HTML(
             paste0(
               "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px))} .icon-grid img{width: 100%;}</style>",
               "<div>This map shows the risk level of attending an event, given the event size and location.  ",
+              "</br>",
               "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in a county, given the size of the event.</div>",
+              "</br>",
               "<div>You can reduce the risk that one case becomes many by: </div>",
               "<div><div class='icon-grid'>",
               "    <div ><img src='www/icons/mask.png' alt='Wear a mask'></div>",
@@ -36,7 +39,6 @@ mod_usa_risk_map_ui <- function(id) {
               "    <div ><img src='www/icons/outside.png'' alt='Meet outside...'></div>",
               "    <div ><img src='www/icons/ventilate.png' alt='..or ventilate'></div>",
               "</div></div>",
-              "</br>",
               "</br>",
               "<div>Choose an event size and ascertainment bias below</div>"
             )
