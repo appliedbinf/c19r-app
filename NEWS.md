@@ -1,3 +1,9 @@
+# covid19RiskPlanner 1.0.4
+
+* Map sidebar text is now generated 
+* Small grammar fixes
+
+
 # covid19RiskPlanner 1.0.3
 
 * Documentation updates and pkgdown site

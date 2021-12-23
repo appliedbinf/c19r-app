@@ -79,3 +79,39 @@ riskParams <- function(val) {
     TRUE ~ as.character(glue::glue("{val}%"))
   )
 }
+
+#' Generate sidebar text
+#'
+#' @param geo_specific String for geospecific region description
+#'
+#' @return HTML for sidebar
+#' @export
+#'
+sidebar_text <- function(geo_specific = "a county") {
+  
+  return(
+    HTML(
+      paste0(
+        "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px))} .icon-grid img{width: 100%;}</style>",
+        "<div>This map shows the risk level of attending an event, given the event size and location.  ",
+        "</br>",
+        "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in ",
+        geo_specific, 
+        ", given the size of the event.</div>",
+        "</br>",
+        "<div>Reduce the risk that one case becomes many and: </div>",
+        "<div><div class='icon-grid'>",
+        "    <div ><img src='www/icons/mask.png' alt='Wear a mask'></div>",
+        "    <div ><img src='www/icons/test.png' alt='Get tested'></div>",
+        "    <div ><img src='www/icons/vaccinate.png' alt='Get vaccinated'></div>",
+        "    <div ><img src='www/icons/distance.png' alt='Social distance'></div>",
+        "    <div ><img src='www/icons/outside.png'' alt='Meet outside...'></div>",
+        "    <div ><img src='www/icons/ventilate.png' alt='..or ventilate'></div>",
+        "</div></div>",
+        "</br>",
+        "<div>Choose an event size and ascertainment bias below</div>"
+      )
+    )
+  )
+  
+}
