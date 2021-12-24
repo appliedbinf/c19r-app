@@ -1,3 +1,7 @@
+# covid19RiskPlanner 1.0.5
+
+* Update authors
+
 # covid19RiskPlanner 1.0.4
 
 * Map sidebar text is now generated 
