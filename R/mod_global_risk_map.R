@@ -16,7 +16,7 @@ mod_global_risk_map_ui <- function(id) {
     sidebarLayout(
       sidebarPanel(
         width = 3,
-        sidebar_text(geo_specific = "a NUTS-3 level area (County, Local Authority, Council, District)"),
+        sidebar_text(geo_specific = "a region"),
         mod_show_data_ui("to_data"),
         shinyWidgets::sliderTextInput(
           ns("global_event_size_map"),
