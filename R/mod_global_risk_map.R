@@ -64,7 +64,7 @@ mod_global_risk_map_server <- function(id) {
       output$eu_map_static <- renderUI({
         tags$iframe(
           id = "global-map",
-          src = paste0("https://covid19risk.biosci.gatech.edu/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
+          src = paste0("https://covid19risk.biosci.gatech.edu/www/eu_maps/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
           style = "position: relative; height: 60vh; width: -moz-available; width: -webkit-fill-available;  width: fill-available; max-width: 992px; max-height: 580px; min-height: 350px; align: center", frameBorder = "0"
         )
       })
@@ -73,7 +73,7 @@ mod_global_risk_map_server <- function(id) {
     observeEvent(input$global_asc_bias, {
       output$eu_map_static <- renderUI({
         tags$iframe(
-          src = paste0("https://covid19risk.biosci.gatech.edu/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
+          src = paste0("https://covid19risk.biosci.gatech.edu/www/eu_maps/", "eu_", input$global_asc_bias, "_", input$global_event_size_map, ".html"),
           style = "position: relative; height: 60vh; width: -moz-available; width: -webkit-fill-available;  width: fill-available; max-width: 992px; max-height: 580px; min-height: 350px; align: center", frameBorder = "0"
         )
       })
