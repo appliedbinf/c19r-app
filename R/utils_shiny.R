@@ -7,6 +7,7 @@ loadDataOnStart <- function() {
   db <<- connect_to_db(dbname = "c19r")
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
+  eu_geom <<- sf::st_read(app_sys("map_data/eu_risk_geoms.geojson"))
   names(stateline) <<- c("stname", "name", "geometry")
   get_data()
 }
@@ -126,5 +127,13 @@ get_data <- function() {
     dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
   
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
+  
+  eu_regions <<- vroom::vroom(app_sys("app/www/eu_subregional_risk.csv")) %>%
+    dplyr::select(-name, -country)
+  
+  eu_regions <<- eu_geom %>% dplyr::inner_join(eu_regions, by ="code") %>%
+    dplyr::group_by(name, country) %>%
+    dplyr::slice(1) %>% dplyr::ungroup()
+  
 
 }
