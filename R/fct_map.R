@@ -92,7 +92,7 @@ sidebar_text <- function(geo_specific = "a county") {
   return(
     HTML(
       paste0(
-        "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px))} .icon-grid img{width: 100%;}</style>",
+        "<style>.icon-grid{display: grid; grid-gap: 10px; grid-template-columns: repeat(3, minmax(50px, 90px)); align-items: center; justify-content: space-evenly;} .icon-grid img{width: 100%;}</style>",
         "<div>This map shows the risk level of attending an event, given the event size and location.  ",
         "</br>",
         "The risk level is the estimated chance (0-100%) that at least 1 COVID-19 positive individual will be present at an event in ",
