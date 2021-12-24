@@ -11,7 +11,7 @@ Authors@R: c(
     person('Seohla', 'Lee', email = 'achande@ihrc.com', role = c('aut')),
     person('Quan', 'Nguyen', email = 'qnguyen83@gatech.edu', role = c('aut')),
     person('Mallory', 'Harris', email = 'Mharris9@stanford.edu', role = c('aut')),
-    person('Audra', 'Davidson', email = 'davidson.audra@gatech.edu', role = c('aut')),
+    person('Audra', 'Davidson', email = 'davidson.audra@gatech.edu', role = c('aut'))
     )
 Description: Visualize the risk estimated risk (0-100%) that at 
     least 1 COVID-19 positive individual will be present at an event 
