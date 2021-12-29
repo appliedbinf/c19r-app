@@ -168,7 +168,7 @@ mod_risk_quiz_server <- function(id, globals) {
     })
 
     observeEvent(input$game_consent, {
-      if (input$game_consent == "yes") {
+      if (input$game_consent == "yes" || input$game_consent == 1 || input$game_consent == TRUE) {
         session$sendCustomMessage("cookie-set", list(name = "consent", value = "yes"))
       } else {
         session$sendCustomMessage("cookie-set", list(name = "consent", value = "no"))

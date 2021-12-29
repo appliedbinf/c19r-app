@@ -1,3 +1,8 @@
+# covid19RiskPlanner 1.1.0
+
+* Integrate Global map as leaflet
+* Fix quiz consent not catching "yes" on all tabs
+
 # covid19RiskPlanner 1.0.5
 
 * Update authors
