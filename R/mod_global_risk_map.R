@@ -67,7 +67,7 @@ mod_global_risk_map_server <- function(id) {
       labels <- paste0(
         "<strong>", paste0(riskData$name, ", ", riskData$country), "</strong><br/>",
         "Current Risk Level: <b>", riskData$risk, ifelse(riskData$risk == "No data", "", "&#37;"), "</b><br/>",
-        "Latest Update: ", substr(riskData$date, 1, 10)
+        "Latest Update: ", riskData$updated
       ) %>% lapply(htmltools::HTML)
       return(labels)
     }
@@ -86,13 +86,11 @@ mod_global_risk_map_server <- function(id) {
           country,
           updated,
           risk = "3_50",
+          polyid,
           geometry
-        ) %>%
-        dplyr::mutate(
-          polyid = paste0("gid", dplyr::row_number())
-        )
+        ) 
       
-      basemap <- leaflet::leaflet(options = leaflet::leafletOptions(worldCopyJump = F, preferCanvas = TRUE)) %>%
+      basemap <- leaflet::leaflet(options = leaflet::leafletOptions(worldCopyJump = F)) %>%
         leaflet::addProviderTiles(leaflet::providers$CartoDB.Positron) %>%
         # Center on US
         leaflet::setView(
@@ -100,11 +98,14 @@ mod_global_risk_map_server <- function(id) {
         ) %>%
         # Add county geoms
         leaflet::addPolygons(
-          layerId = ~polyid, # id of geom that will be used by js functions
           data = risk_data,
+          layerId = ~polyid, # id of geom that will be used by js functions
           color = "#444444",
           weight = 0.2,
-          smoothFactor = 0.1
+          smoothFactor = 0.1,
+          fillColor = pal(risk_data$risk),
+          fillOpacity = 0.7,
+          label = combined_labels(risk_data)
           ) %>%
         # Add custom legend
         leaflet::addLegend(
@@ -138,14 +139,12 @@ mod_global_risk_map_server <- function(id) {
           country,
           updated,
           risk := glue::glue("{input$global_asc_bias}_{input$global_event_size_map}"),
-          geometry
-        ) %>%
-        dplyr::mutate(
-          polyid = paste0("gid", dplyr::row_number())
+          geometry,
+          polyid
         )
-       
+
       leaflet::leafletProxy("global_map", data = risk_data) %>%
-        setShapeStyle(layerId = ~polyid, fillColor = pal(risk_data$risk), color = "#444444", fillOpacity = 0.7, ) %>%
+        setShapeStyle(layerId = ~polyid, fillColor = pal(risk_data$risk), color = "#444444", fillOpacity = 0.7) %>%
         setShapeLabel(layerId = ~polyid, label = combined_labels(risk_data))
     })
   })
