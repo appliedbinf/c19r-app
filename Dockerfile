@@ -40,10 +40,25 @@ RUN Rscript -e 'remotes::install_version("pool",upgrade="never", version = "0.1.
 RUN Rscript -e 'remotes::install_version("waiter",upgrade="never", version = "0.2.4")'
 RUN Rscript -e 'remotes::install_version("vctrs",upgrade="never", version = "0.3.8")'
 
+
 RUN mkdir /build_zone
+RUN apt-get update && apt-get install wget gdebi-core -y \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb \
+	&& gdebi -n shiny-server-1.5.17.973-amd64.deb
+COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 ADD . /build_zone
 WORKDIR /build_zone
 RUN R -e 'remotes::install_local(upgrade="never")'
 RUN rm -rf /build_zone
 EXPOSE 80
-CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');covid19RiskPlanner::run_app()"
+RUN rm -rf /srv/shiny-server/* \
+	&& chown shiny:shiny /var/lib/shiny-server \
+	&& chmod 777 -R /usr/local/lib/R/site-library/covid19RiskPlanner/ \
+	&& echo "covid19RiskPlanner::run_app()" > /srv/shiny-server/app.R
+
+COPY run-shiny-server /run-shiny-server
+
+RUN chmod +x /run-shiny-server
+
+CMD /run-shiny-server

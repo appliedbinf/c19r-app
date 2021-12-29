@@ -1,0 +1,30 @@
+#!/bin/bash
+if [[ ! -z "${MYSQL_USERNAME}" ]]; then
+  echo "export MYSQL_USERNAME=\"$MYSQL_USERNAME\"" >> /etc/profile
+fi
+
+if [[ ! -z "${MYSQL_PASSWORD}" ]]; then
+  echo "export MYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> /etc/profile
+fi
+
+if [[ ! -z "${MYSQL_HOST}" ]]; then
+  echo "export MYSQL_HOST=\"$MYSQL_HOST\"" >> /etc/profile
+fi
+
+if [[ ! -z "${C19R_CASES_DIR}" ]]; then
+  echo "export C19R_CASES_DIR=\"$C19R_CASES_DIR\"" >> /etc/profile
+fi
+
+if [[ ! -z "${C19R_RISK_DATA_US}" ]]; then
+  echo "export C19R_RISK_DATA_US=\"$C19R_RISK_DATA_US\"" >> /etc/profile
+fi
+
+if [[ ! -z "${C19R_RISK_DATA_EU}" ]]; then
+  echo "export C19R_RISK_DATA_EU=\"$C19R_RISK_DATA_EU\"" >> /etc/profile
+fi
+
+if [[ ! -z "${C19R_EXTERNAL_UPDATES}" ]]; then
+  echo "export C19R_EXTERNAL_UPDATES=\"$C19R_EXTERNAL_UPDATES\"" >> /etc/profile
+fi
+
+shiny-server
