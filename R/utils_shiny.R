@@ -7,6 +7,7 @@ loadDataOnStart <- function() {
   db <<- connect_to_db(dbname = "c19r")
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
+  eu_geom <<- sf::st_read(app_sys("map_data/eu_risk_geoms.geojson"))
   names(stateline) <<- c("stname", "name", "geometry")
   get_data()
 }
@@ -38,7 +39,8 @@ timeout <- sever::sever_default(
 #' environment variables that are import to its functioning
 #'
 #' C19R_CASES_DIR Alternative path to NYT COVID19 case data
-#' C19R_RISK_DATA Alternative path to pre-computed risk data
+#' C19R_RISK_DATA_US Alternative path to pre-computed risk data
+#' C19R_RISK_DATA_EU Alternative path to pre-computed risk data
 #' C19R_EXTERNAL_UPDATES Prevent app from update NYT case data
 #'
 #' @export
@@ -46,14 +48,26 @@ timeout <- sever::sever_default(
 get_data <- function() {
   TZ <<- "America/New_York"
 
-  DEFAULT_RISK_DATA <- app_sys("app/www/usa_risk_counties.csv")
-  RISK_DATA <- Sys.getenv("C19R_RISK_DATA", DEFAULT_RISK_DATA)
+  US_DEFAULT_RISK_DATA <- app_sys("app/www/usa_risk_counties.csv")
+  US_RISK_DATA <- Sys.getenv("C19R_RISK_DATA_US", US_DEFAULT_RISK_DATA)
 
-  if (!file.exists(RISK_DATA)) {
+  if (!file.exists(US_RISK_DATA)) {
     stop(
       glue::glue(
         "The pre-computed risk data does not exist at the given path",
-        "\n{RISK_DATA}"
+        "\n{US_RISK_DATA}"
+      )
+    )
+  }
+  
+  EU_DEFAULT_RISK_DATA <- app_sys("app/www/eu_subregional_risk.csv")
+  EU_RISK_DATA <- Sys.getenv("C19R_RISK_DATA_EU", EU_DEFAULT_RISK_DATA)
+  
+  if (!file.exists(EU_RISK_DATA)) {
+    stop(
+      glue::glue(
+        "The pre-computed risk data does not exist at the given path",
+        "\n{EU_RISK_DATA}"
       )
     )
   }
@@ -121,10 +135,21 @@ get_data <- function() {
   state_data$state <<- name2abbr[state_data$state]
   state_data <<- state_data %>% tidyr::drop_na()
   
-  usa_counties <<- vroom::vroom(RISK_DATA) %>%
+  usa_counties <<- vroom::vroom(US_RISK_DATA) %>%
     dplyr::select(-NAME, -stname) %>%
     dplyr::mutate_at(dplyr::vars(-GEOID, -state, -updated), as.numeric)
   
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
+  
+  eu_regions <<- vroom::vroom(EU_RISK_DATA) %>%
+    dplyr::select(-name, -country)
+  
+  eu_regions <<- eu_geom %>% dplyr::inner_join(eu_regions, by ="code") %>%
+    dplyr::group_by(name, country) %>%
+    dplyr::slice(1) %>% dplyr::ungroup() %>%
+    dplyr::mutate(
+      polyid = paste0("gid", dplyr::row_number())
+    )
+  
 
 }

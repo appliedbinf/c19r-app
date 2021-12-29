@@ -12,6 +12,7 @@ environment variables that are import to its functioning
 }
 \details{
 C19R_CASES_DIR Alternative path to NYT COVID19 case data
-C19R_RISK_DATA Alternative path to pre-computed risk data
+C19R_RISK_DATA_US Alternative path to pre-computed risk data
+C19R_RISK_DATA_EU Alternative path to pre-computed risk data
 C19R_EXTERNAL_UPDATES Prevent app from update NYT case data
 }
