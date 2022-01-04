@@ -13,9 +13,11 @@ US 2019 population estimate data comes from the US Census: https://www.census.go
 
 **Vaccination data**
 
-State-level vaccination data is obtained from the collection made by Our World in Data from the United States Centers for Disease Control and Prevention. https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations 
+County-level vaccination coverage is collated by the Bansal lab at https://www.vaccinetracking.us/. We linearly interpolate between weekly values and merge county data to account for geographic exceptions in Alaska (Hoonah-Angoon plus Yakutat; Lake Peninsula plus Bristol Bay) and in New York City (New York, Kings, Queens, Bronx plus Richmond) following the New York Times dataset. Joint vaccination levels are computed for the City of Joplin, Jasper County, and Newton County, Missouri and for Kansas City, Jackson County, Clay County, Cass County, and Platte County, Missouri.
 
-Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations. Nat Hum Behav (2021). https://doi.org/10.1038/s41562-021-01122-8
+Merritt, Alexes; Tiu, Andrew; Bansal, Shweta, 2021, "Integrated US COVID-19 Vaccination Data", https://doi.org/10.7910/DVN/BFRIKI, Harvard Dataverse, V1.
+
+Andrew Tiu, Zachary Susswein, Alexes Merritt, Shweta Bansal. Characterizing the spatiotemporal heterogeneity of the COVID-19 vaccination landscape. medRxiv. https://doi.org/10.1101/2021.10.04.21263345
 
 
 
@@ -32,10 +34,11 @@ Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc
 
 Italian maps: http://datainterfaces.org/projects/covid19eventi/
 
-### Switzerland
+### Switzerland and Liechtenstein
 #### Released: October 5, 2020
 
-Specialist Unit for Open Government Data Canton of Zurich COVID-19 data: https://github.com/openZH/covid_19
+(from October 5, 2020 - December 19, 2021) Specialist Unit for Open Government Data Canton of Zurich COVID-19 data: https://github.com/openZH/covid_19
+(from December 19, 2021):  Federal Office of Public Health FOPH: https://www.covid19.admin.ch/en/overview
 
 ### Austria 
 #### Released: October 19, 2020
@@ -71,3 +74,8 @@ COVID-19 data from the Statens Serum Institut (SSI):
 ### Sweden
 #### Released: November 22, 2020
 Swedish COVID-19 National Statistics from Folkhälsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
+
+
+### Albania, Andorra, Belarus, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Estonia, Finland, Germany, Greece, Hungary, Iceland, Israel, Latvia, Lithuania, Luxembourg, Malta, Moldova, Monaco, Montenegro, Netherlands, Norway, Poland, Portugal, Northern Macedonia, Romania, San Marino, Serbia, Slovakia, Slovenia, Turkey, Ukraine; and Gibraltar, Guernsey, Jersey, Isle of Man, Faroe Islands, Greenland
+#### Released: December 19, 2021
+We use data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer: https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
