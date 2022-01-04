@@ -154,7 +154,7 @@ NAVPAGE_HEADER <- tags$head(
   NAVPAGE_HEADER_GA,
   NAVPAGE_GET_IP,
   shinyjs::useShinyjs(),
-  sever::use_sever(),
+  sever::useSever(),
   waiter::use_waiter(),
   # when the image panel is toggled, trigger an invalidate() on the leaflet map
   tags$script(

@@ -45,7 +45,6 @@ golem_add_external_resources <- function() {
       app_title = "covid19RiskPlanner"
     ),
     shinyjs::useShinyjs(),
-    sever::use_sever()
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )

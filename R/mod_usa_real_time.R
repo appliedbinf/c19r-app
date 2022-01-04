@@ -198,7 +198,7 @@ mod_usa_real_time_server <- function(id, globals) {
           ) +
           ggplot2::guides(color = ggplot2::guide_legend(title = "% Chance"), override.aes = list(size = 2)) +
           ggplot2::labs(
-            caption = paste0("© CC-BY-4.0\tChande, A.T., Gussler, W., Harris, M., Lee, S., Rishishwar, L., Jordan, I.K., Andris, C.M., and Weitz, J.S. 'Interactive COVID-19 Event Risk Assessment Planning Tool'\nhttp://covid19risk.biosci.gatech.edu\nData updated on and risk estimates made:  ", lubridate::today(), "\nReal-time COVID19 data comes from the COVID Tracking Project: https://covidtracking.com/api/\nUS 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html"),
+            caption = paste0("\xA9 CC-BY-4.0\tChande, A.T., Gussler, W., Harris, M., Lee, S., Rishishwar, L., Jordan, I.K., Andris, C.M., and Weitz, J.S. 'Interactive COVID-19 Event Risk Assessment Planning Tool'\nhttp://covid19risk.biosci.gatech.edu\nData updated on and risk estimates made:  ", lubridate::today(), "\nReal-time COVID19 data comes from the COVID Tracking Project: https://covidtracking.com/api/\nUS 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html"),
             title = paste0("COVID-19 Event Risk Assessment Planner - ", states_dd, " - ", lubridate::today()),
             subtitle = "Estimated chance that one or more individuals are COVID-19 positive at an event\ngiven event size (x-axis) and current case prevalence (y-axis)"
           )
