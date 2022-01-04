@@ -3,8 +3,10 @@
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' 1 %not_in% 1:10
 #' not_null(NULL)
+#' }
 `%not_in%` <- Negate(`%in%`)
 
 not_null <- Negate(is.null)
@@ -15,8 +17,10 @@ not_na <- Negate(is.na)
 #'
 #' @noRd
 #'
-#' @example
+#' @examples
+#' \dontrun{
 #' drop_nulls(list(1, NULL, 2))
+#' }
 drop_nulls <- function(x) {
   x[!sapply(x, is.null)]
 }
@@ -28,7 +32,9 @@ drop_nulls <- function(x) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' NULL %||% 1
+#' }
 "%||%" <- function(x, y) {
   if (is.null(x)) {
     y
@@ -44,7 +50,9 @@ drop_nulls <- function(x) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' NA %||% 1
+#' }
 "%|NA|%" <- function(x, y) {
   if (is.na(x)) {
     y

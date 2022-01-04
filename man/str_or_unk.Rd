@@ -16,6 +16,8 @@ converted object
 Convert null objects to "Unknown"
 }
 \examples{
-str_or_unk(NULL)
-str_or_unk("example")
+\dontrun{
+ str_or_unk(NULL)
+ str_or_unk("example")
+}
 }

@@ -18,5 +18,7 @@ Rounded number
 roundUpNice
 }
 \examples{
+\dontrun{
 roundUpNice(124207)
+}
 }

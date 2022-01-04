@@ -13,6 +13,7 @@
 #'
 #' @return `pool::dbPool` obj`
 #'
+#' @examples
 #' \dontrun{
 #' connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
 #' }
@@ -105,8 +106,10 @@ save_willingness <- function(db,
 #' @return converted object
 #' 
 #' @examples
-#' str_or_unk(NULL)
-#' str_or_unk("example")
+#'\dontrun{
+#'  str_or_unk(NULL)
+#'  str_or_unk("example")
+#'}
 str_or_unk <- function(obj) {
   if (is.null(obj)) {
     "Unknown"
@@ -124,8 +127,6 @@ str_or_unk <- function(obj) {
 #'
 #' @return Slider input
 #'
-#' @examples
-#' make_resp_slider("slider_82", "")
 make_resp_slider <- function(input, label) {
   sliderInput(
     inputId = input,

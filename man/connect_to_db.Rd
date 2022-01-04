@@ -31,11 +31,12 @@ connect_to_db(
 }
 \value{
 `pool::dbPool` obj`
-
-\dontrun{
-connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
-}
 }
 \description{
 Connect to database and return pool object
+}
+\examples{
+\dontrun{
+connect_to_db(drv = RMySQL::MySQL(), username = "root", password = "root")
+}
 }

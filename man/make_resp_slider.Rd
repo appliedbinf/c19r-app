@@ -17,6 +17,3 @@ Slider input
 \description{
 Create slider inputs for Risk Quik, range from 0-100%
 }
-\examples{
-make_resp_slider("slider_82", "")
-}

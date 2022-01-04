@@ -7,7 +7,9 @@
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' list_to_li(c("a", "b"))
+#' }
 #' @importFrom shiny tags tagAppendAttributes tagList
 list_to_li <- function(list, class = NULL) {
   if (is.null(class)) {
@@ -43,7 +45,9 @@ list_to_li <- function(list, class = NULL) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' list_to_p(c("This is the first paragraph", "this is the second paragraph"))
+#' }
 #' @importFrom shiny tags tagAppendAttributes tagList
 #'
 list_to_p <- function(list, class = NULL) {
@@ -123,7 +127,9 @@ named_to_li <- function(list, class = NULL) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' a <- shiny::tags$p(src = "plop", "pouet")
+#' }
 #' tagRemoveAttributes(a, "src")
 tagRemoveAttributes <- function(tag, ...) {
   attrs <- as.character(list(...))
@@ -141,11 +147,13 @@ tagRemoveAttributes <- function(tag, ...) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' ## Hide
 #' a <- shiny::tags$p(src = "plop", "pouet")
 #' undisplay(a)
 #' b <- shiny::actionButton("go_filter", "go")
 #' undisplay(b)
+#' }
 #' @importFrom shiny tagList
 undisplay <- function(tag) {
   # if not already hidden
@@ -200,7 +208,9 @@ jq_hide <- function(id) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' with_red_star("Enter your name here")
+#' }
 #' @importFrom shiny tags HTML
 with_red_star <- function(text) {
   shiny::tags$span(
@@ -225,7 +235,9 @@ with_red_star <- function(text) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' rep_br(5)
+#' }
 #' @importFrom shiny HTML
 rep_br <- function(times = 1) {
   HTML(rep("<br/>", times = times))
@@ -240,7 +252,9 @@ rep_br <- function(times = 1) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' enurl("https://www.thinkr.fr", "ThinkR")
+#' }
 #' @importFrom shiny tags
 enurl <- function(url, text) {
   tags$a(href = url, text)
@@ -311,6 +325,7 @@ col_1 <- function(...) {
 #' @noRd
 #'
 #' @examples
+#' \dontrun{
 #' if (interactive()) {
 #'   library(shiny)
 #'
@@ -327,6 +342,7 @@ col_1 <- function(...) {
 #'   }
 #'
 #'   shinyApp(ui, server)
+#' }
 #' }
 make_action_button <- function(tag, inputId = NULL) {
   # some obvious checks

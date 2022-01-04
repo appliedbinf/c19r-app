@@ -16,8 +16,8 @@ Adjusted p-value
 pcrit
 }
 \examples{
-pcrit(c(10,100,1000))
 \dontrun{
+pcrit(c(10,100,1000))
 pcrit("ten")
 }
 }
