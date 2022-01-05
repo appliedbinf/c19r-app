@@ -39,7 +39,7 @@ RUN Rscript -e 'remotes::install_version("data.table",upgrade="never", version =
 RUN Rscript -e 'remotes::install_version("pool",upgrade="never", version = "0.1.6")'
 RUN Rscript -e 'remotes::install_version("waiter",upgrade="never", version = "0.2.4")'
 RUN Rscript -e 'remotes::install_version("vctrs",upgrade="never", version = "0.3.8")'
-
+RUN Rscript -e 'remotes::install_github("JohnCoene/sever@4accf448140f1de0d8b634b2aa1e5c4b7fd52059")
 
 RUN mkdir /build_zone
 RUN apt-get update && apt-get install wget gdebi-core -y \
