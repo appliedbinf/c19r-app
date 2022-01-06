@@ -70,7 +70,7 @@ mod_usa_risk_map_ui <- function(id) {
             align = "center", class = "hidden-md hidden-lg hidden-xl d-sm d-xs",
             column(
               12,
-              mod_take_quiz_button_ui("to_quiz")
+              mod_take_quiz_button_ui("to_quiz_sidebar")
             )
           )
         )
@@ -148,7 +148,7 @@ mod_usa_risk_map_ui <- function(id) {
             align = "center",
             column(
               12,
-              mod_take_quiz_button_ui("to_quiz")
+              mod_take_quiz_button_ui("to_quiz_map")
             )
           ),
           fluidRow(

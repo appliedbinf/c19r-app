@@ -1,3 +1,11 @@
+# covid19RiskPlanner 1.1.2
+
+* Fix to quiz buttons
+
+# covid19RiskPlanner 1.1.1
+
+*  Update About text
+
 # covid19RiskPlanner 1.1.0
 
 * Integrate Global map as leaflet
