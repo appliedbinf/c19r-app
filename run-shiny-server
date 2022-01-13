@@ -27,4 +27,7 @@ if [[ ! -z "${C19R_EXTERNAL_UPDATES}" ]]; then
   echo "export C19R_EXTERNAL_UPDATES=\"$C19R_EXTERNAL_UPDATES\"" >> /etc/profile
 fi
 
+mkdir =o /srv/shiny-server/www
+hostname > /srv/shiny-server/www/node.html
+
 shiny-server
