@@ -358,7 +358,8 @@ mod_risk_quiz_server <- function(id, globals) {
                 NULLIF(?utm_content, 'NULL'),
                 NULLIF(?utm_campaign, 'NULL')
         )"
-
+        latitude <- globals$latitude()
+        longitude <- globals$longitude()
         query <-
           DBI::sqlInterpolate(
             DBI::ANSI(),
@@ -374,8 +375,8 @@ mod_risk_quiz_server <- function(id, globals) {
             g100 = pred_risk$g_100,
             g1000 = pred_risk$g_1000,
             ip = globals$ip(),
-            lat = globals$latitude(),
-            long = globals$longitude(),
+            lat = ifelse(is.null(latitude), "Unknown", latitude),
+            long = ifelse(is.null(longitude), "Unknown", longitude),
             utm_source = globals$ref_content()$utm_source,
             utm_medium = globals$ref_content()$utm_medium,
             utm_content = globals$ref_content()$utm_content,
