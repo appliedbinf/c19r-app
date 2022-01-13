@@ -55,7 +55,7 @@ EXPOSE 80
 RUN rm -rf /srv/shiny-server/* \
 	&& chown shiny:shiny /var/lib/shiny-server \
 	&& chmod 777 -R /usr/local/lib/R/site-library/covid19RiskPlanner/ \
-	&& echo -e "options(golem.app.prod = FALSE)]\ncovid19RiskPlanner::run_app()" > /srv/shiny-server/app.R
+	&& echo "options(golem.app.prod = FALSE)\ncovid19RiskPlanner::run_app()" > /srv/shiny-server/app.R
 
 COPY run-shiny-server /run-shiny-server
 
