@@ -5,8 +5,12 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-  # Timezone to use for timestamp-based triggers
-  TZ <- "America/New_York"
+  # Allow session reconnects.  Should help with sessions that abrustly end
+  # because of brief network errors
+  session$allowReconnect(TRUE)
+  
+  # Timezone to use for timestamp-based 
+    TZ <- "America/New_York"
   # Every 2 hours (on first request) update data
   if (lubridate::force_tz(current_ts, TZ) + max_offset < lubridate::now(tzone = TZ)) {
     get_data()

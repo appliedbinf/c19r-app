@@ -1,3 +1,7 @@
+# covid19RiskPlanner 1.1.x (Unreleased)
+
+* Force allow session reconnects to hopefully cut down on websocket errors
+
 # covid19RiskPlanner 1.1.2
 
 * Fix to quiz buttons
