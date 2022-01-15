@@ -1,6 +1,7 @@
 # covid19RiskPlanner 1.1.x (Unreleased)
 
 * Force allow session reconnects to hopefully cut down on websocket errors
+* Temporarily preserve shiny logs on prod to help debug abrust session ending
 
 # covid19RiskPlanner 1.1.2
 
