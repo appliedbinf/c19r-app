@@ -56,7 +56,7 @@ RUN rm -rf /srv/shiny-server/* \
 	&& chown shiny:shiny /var/lib/shiny-server /srv/shiny-server \
 	&& chmod 777 -R /usr/local/lib/R/site-library/covid19RiskPlanner/ \
 	&& echo "options(golem.app.prod = FALSE)" > /srv/shiny-server/app.R \
-	&& echo "options(shiny.sanitize.errors = FALSE" >> /srv/shiny-server/app.R \
+	&& echo "options(shiny.sanitize.errors = FALSE)" >> /srv/shiny-server/app.R \
 	&& echo "covid19RiskPlanner::run_app()" >> /srv/shiny-server/app.R \
 	&& echo "preserve_logs true;" >> /etc/shiny-server/shiny-server.conf 
 
