@@ -16,9 +16,7 @@ mod_risk_quiz_ui <- function(id) {
     shinyWidgets::chooseSliderSkin("Round"),
     tags$script(
       '
-        $(document).ready(function () {
-          navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
+        $(document).on("shiny:connected", function () {
           function onError (err) {
           console.log(err)
             Shiny.onInputChange("geolocation", false);
@@ -34,6 +32,7 @@ mod_risk_quiz_ui <- function(id) {
               Shiny.onInputChange("long", coords.longitude);
             }, 1100)
           }
+          setTimeout(function(){navigator.geolocation.getCurrentPosition(onSuccess, onError)}, 4000)
         });
                 '
     ),
