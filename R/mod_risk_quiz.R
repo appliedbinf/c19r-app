@@ -32,7 +32,7 @@ mod_risk_quiz_ui <- function(id) {
               Shiny.onInputChange("long", coords.longitude);
             }, 1100)
           }
-          setTimeout(function(){navigator.geolocation.getCurrentPosition(onSuccess, onError)}, 4000)
+          navigator.geolocation.getCurrentPosition(onSuccess, onError)
         });
                 '
     ),
