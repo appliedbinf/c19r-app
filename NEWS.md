@@ -1,4 +1,7 @@
-# covid19RiskPlanner 1.1.x (Unreleased)
+# covid19RiskPlanner 1.1.4 (Unreleased)
+* Catch 502s from FCC's geolocation API
+
+# covid19RiskPlanner 1.1.3 (Unreleased)
 
 * Force allow session reconnects to hopefully cut down on websocket errors
 * Temporarily preserve shiny logs on prod to help debug abrust session ending

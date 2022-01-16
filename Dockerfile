@@ -44,8 +44,8 @@ RUN Rscript -e 'remotes::install_github("JohnCoene/sever@4accf448140f1de0d8b634b
 RUN mkdir /build_zone
 RUN apt-get update && apt-get install wget gdebi-core -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.16.958-amd64.deb \
-	&& gdebi -n shiny-server-1.5.16.958-amd64.deb
+	&& wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb \
+	&& gdebi -n shiny-server-1.5.17.973-amd64.deb
 COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 ADD . /build_zone
 WORKDIR /build_zone
@@ -55,10 +55,7 @@ EXPOSE 80
 RUN rm -rf /srv/shiny-server/* \
 	&& chown shiny:shiny /var/lib/shiny-server /srv/shiny-server \
 	&& chmod 777 -R /usr/local/lib/R/site-library/covid19RiskPlanner/ \
-	&& echo "options(golem.app.prod = FALSE)" > /srv/shiny-server/app.R \
-	&& echo "options(shiny.sanitize.errors = FALSE)" >> /srv/shiny-server/app.R \
-	&& echo "covid19RiskPlanner::run_app()" >> /srv/shiny-server/app.R \
-	&& echo "preserve_logs true;" >> /etc/shiny-server/shiny-server.conf 
+	&& echo "covid19RiskPlanner::run_app()" >> /srv/shiny-server/app.R 
 
 COPY run-shiny-server /run-shiny-server
 

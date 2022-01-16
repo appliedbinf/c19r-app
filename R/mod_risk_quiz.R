@@ -213,9 +213,18 @@ mod_risk_quiz_server <- function(id, globals) {
             "https://geo.fcc.gov/api/census/block/find?",
             "latitude={globals$latitude()}&longitude={globals$longitude()}&format=json"
           )
-          location <- jsonlite::fromJSON(api_url, )
+          location <-
+            tryCatch(
+              jsonlite::fromJSON(api_url,),
+              error = function(e) {
+                return(NULL)
+              }
+            )
+          if (is.null(location)) {
+            return(NULL)
+          }
           geo_county(location$County$name)
-
+          
           if (is.null(geo_county())) {
             return(NULL)
           }
@@ -230,11 +239,10 @@ mod_risk_quiz_server <- function(id, globals) {
             selected = geo_county()
           )
           updateSelectizeInput("risk_state",
-            session = session,
-            selected = location$State$code
-          )
+                               session = session,
+                               selected = location$State$code)
         }
-      },
+      }, 
       ignoreNULL = T
     )
 
