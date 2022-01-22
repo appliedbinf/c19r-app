@@ -1,4 +1,10 @@
-# covid19RiskPlanner 1.1.4 (Unreleased)
+# covid19RiskPlanner 1.2.0
+* Documentation updates  
+* Update Footer text to include new funding  
+* Catch DB connection errors earlier and emit a useful error message
+
+
+# covid19RiskPlanner 1.1.4
 * Catch 502s from FCC's geolocation API
 
 # covid19RiskPlanner 1.1.3 (Unreleased)
