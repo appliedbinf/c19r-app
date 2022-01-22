@@ -189,7 +189,8 @@ NAVPAGE_FOOTER <- HTML(
   'rel="noopener" target="_blank">Nature Human Behaviour</a>.</p>',
   "<p>Ongoing support for the project is via the Centers for Disease ",
   "Control and Prevention (75D30121P10600), Charities in Aid Foundation, ",
-  "and The Marier Cunningham Foundation.</p></div>"
+  "The Marier Cunningham Foundation, ",
+  "and the Rockefeller Foundation Pandemic Prevention Institute.</p></div>"
 )
 
 SURVEY_ELEMENT <- div(
