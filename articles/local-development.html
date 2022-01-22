@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">covid19RiskPlanner</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,6 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/container-based-development.html">container-based-development</a>
     <a class="dropdown-item" href="../articles/deploying.html">Deploying COVID19 Risk Planner in production</a>
     <a class="dropdown-item" href="../articles/local-development.html">local-development</a>
   </div>
@@ -81,9 +80,45 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/appliedbinf/c19r-app" class="external-link">covid19RiskPlanner</a></span><span class="op">)</span></code></pre></div>
-  </main>
+<div class="section level2">
+<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
+<div class="section level3">
+<h3 id="source-code">Source code<a class="anchor" aria-label="anchor" href="#source-code"></a>
+</h3>
+<p>Clone the Githhub repository, either through the command line <code>git</code> client with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">git</span> clone git@github.com:appliedbinf/c19r-app.git</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">cd</span> c19r-app</span></code></pre></div>
+<p>Or by creating a new project in Rstudio with: New Project &gt; Version Control -&gt; Git, and provide the Github repository URL above</p>
+</div>
+<div class="section level3">
+<h3 id="setup-your-environment-optional-but-recommended">Setup your environment (optional but recommended)<a class="anchor" aria-label="anchor" href="#setup-your-environment-optional-but-recommended"></a>
+</h3>
+<p><code>covid19RiskPlanner</code> adopts the <a href="https://12factor.net" class="external-link">12 Factor Application design</a> philosophy, and configuration is done via environment variables. See below for the complete list of environment variables. Before we begin development, a MySQL database should be setup (see <a href="deploying.html">deployment vignette</a> for MySQL setup)</p>
+<div class="section level4">
+<h4 id="environment-variables">Environment variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
+</h4>
+<p><code>MYSQL_USERNAME</code>: MySQL username Note: if <code>MYSQL_USERNAME</code> is empty or not set, “root” will be used <code>MYSQL_PASSWORD</code>: MySQL password Note: If <code>MYSQL_PASSWORD</code> is empty or not set, no password will be used <code>MYSQL_HOST</code>: MySQL hostname Note: If <code>MYSQL_HOST</code> is empty or not set, “localhost” wlll be used</p>
+<p><code>C19R_CASES_DIR: Optional</code>. Alternative path to NYT COVID19 case data. Path should not be relative. <code>C19R_RISK_DATA_US</code>: Optional. Alternative path to pre-computed risk data Path should not be relative. <code>C19R_RISK_DATA_EU</code>: Optional. Alternative path to pre-computed risk data. Path should not be relative. <code>C19R_EXTERNAL_UPDATES</code>: Optional. When one of “true”, “TRUE”, or “1” prevents app from updating NYT case data</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+</h3>
+<p>Install the required development dependencies with <code>devtools</code></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_deps</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="testing-changes">Testing changes<a class="anchor" aria-label="anchor" href="#testing-changes"></a>
+</h2>
+<p>After making changes to the codebase, test your changes locally using:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/run_dev.html" class="external-link">run_dev</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

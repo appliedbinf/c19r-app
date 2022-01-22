@@ -2,10 +2,9 @@ pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
-  container-based-development: container-based-development.html
   deploying: deploying.html
   local-development: local-development.html
-last_built: 2022-01-16T18:26Z
+last_built: 2022-01-22T17:28Z
 urls:
   reference: https://appliedbinf.github.io/c19r-app/reference
   article: https://appliedbinf.github.io/c19r-app/articles
