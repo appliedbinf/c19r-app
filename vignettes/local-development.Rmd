@@ -14,6 +14,54 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(covid19RiskPlanner)
+
+
+# Getting started
+
+## Source code
+
+Clone the Githhub repository, either through the command line `git` client with:
+```{bash, eval = F}
+git clone git@github.com:appliedbinf/c19r-app.git
+cd c19r-app
 ```
+
+Or by creating a new project in Rstudio with: New Project > Version Control -> Git, and provide the Github repository URL above
+
+## Setup your environment (optional but recommended)
+
+`covid19RiskPlanner` adopts the [12 Factor Application design](https://12factor.net) philosophy, and configuration 
+is done via environment variables.  See below for the complete list of environment variables.  Before we begin development, a MySQL database should be setup (see [deployment vignette](deploying.html) for MySQL setup)
+
+
+### Environment variables
+
+
+`MYSQL_USERNAME`: MySQL username
+  Note: if `MYSQL_USERNAME` is empty or not set, "root" will be used
+`MYSQL_PASSWORD`: MySQL password
+  Note: If `MYSQL_PASSWORD` is empty or not set, no password will be used
+`MYSQL_HOST`: MySQL hostname
+  Note: If `MYSQL_HOST` is empty or not set, "localhost" wlll be used
+
+`C19R_CASES_DIR: Optional`. Alternative path to NYT COVID19 case data. Path should not be relative.
+`C19R_RISK_DATA_US`: Optional. Alternative path to pre-computed risk data Path should not be relative.
+`C19R_RISK_DATA_EU`: Optional. Alternative path to pre-computed risk data. Path should not be relative.
+`C19R_EXTERNAL_UPDATES`: Optional. When one of "true", "TRUE", or "1" prevents app from updating NYT case data
+
+
+## Dependencies 
+Install the required development dependencies with `devtools`
+
+```{r, eval = F}
+devtools::install_deps()
+```
+
+# Testing changes
+
+After making changes to the codebase, test your changes locally using:
+
+```{r, eval=F}
+golem::run_dev()
+```
+
