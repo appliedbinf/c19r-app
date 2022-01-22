@@ -24,14 +24,21 @@ connect_to_db <- function(drv = RMySQL::MySQL(),
                           port = 3306,
                           dbname,
                           ...) {
-  pool::dbPool(
-    drv      = drv,
-    username = username,
-    password = password,
-    host     = host,
-    port     = port,
-    dbname   = dbname,
-    ...
+  tryCatch(
+    expr = {
+      pool::dbPool(
+        drv      = drv,
+        username = username,
+        password = password,
+        host     = host,
+        port     = port,
+        dbname   = dbname,
+        ...
+      )
+    },
+    error = function(e) {
+      stop(e)
+    }
   )
 }
 
