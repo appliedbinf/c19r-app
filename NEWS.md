@@ -1,3 +1,7 @@
+# covid19RiskPlanner 1.2.1
+* Add social media icons to header
+
+
 # covid19RiskPlanner 1.2.0
 * Documentation updates  
 * Update Footer text to include new funding  

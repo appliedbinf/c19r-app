@@ -21,7 +21,10 @@ app_ui <- function(request) {
     mod_global_risk_map_ui("global_risk_map_ui_1"),
     mod_usa_real_time_ui("usa_real_time"),
     tutorial_tab(),
-    about_tabset()
+    about_tabset(),
+    bslib::nav_item(HTML(
+    "<a href=\"https://twitter.com/covid19riskusa\" target=_blank style=\"font-size:24px; display: inline-block;\"><i class=\"fa fa-twitter-square\"></i></a>&nbsp;<a href=\"https://www.instagram.com/covid19riskusa/\" target=_blank style=\"font-size:24px; display: inline-block;\"><i class=\"fa fa-instagram\"></i></a>&nbsp;<a href=\"https://www.facebook.com/covid19riskusa\" target=_blank style=\"font-size:24px; display: inline-block;\"><i class=\"fa fa-facebook-square\"></i></a>'"
+    ))
   )
 }
 
