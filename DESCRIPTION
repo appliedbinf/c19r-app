@@ -55,6 +55,7 @@ Imports:
     RMySQL,
     waiter,
     c19rdata,
+    bslib,
     pkgload
 Remotes: github::appliedbinf/c19rdata
 Encoding: UTF-8
