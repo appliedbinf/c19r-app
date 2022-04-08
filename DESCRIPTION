@@ -1,6 +1,6 @@
 Package: covid19RiskPlanner
 Title: COVID-19 Event Risk Assessment Planning Tool
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: c(
     person('Aroon', 'Chande', 'T.', email = 'achande@ihrc.com', role = c('cre', 'aut')),
     person('Joshua', 'Weitz', 'S.', email = 'jsweitz@gatech.edu', role = c('cph', 'aut')),
