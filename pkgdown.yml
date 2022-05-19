@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   deploying: deploying.html
   local-development: local-development.html
-last_built: 2022-05-19T14:50Z
+last_built: 2022-05-19T14:51Z
 urls:
   reference: https://appliedbinf.github.io/c19r-app/reference
   article: https://appliedbinf.github.io/c19r-app/articles
