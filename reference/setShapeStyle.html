@@ -14,7 +14,7 @@ from https://github.com/rstudio/leaflet/pull/598"><!-- mathjax --><script src="h
     
     <a class="navbar-brand me-2" href="../index.html">covid19RiskPlanner</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,54 +64,81 @@ from https://github.com/rstudio/leaflet/pull/598</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">setShapeStyle</span><span class="op">(</span>
-  <span class="va">map</span>,
-  data <span class="op">=</span> <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/getMapData.html" class="external-link">getMapData</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span>,
-  <span class="va">layerId</span>,
-  stroke <span class="op">=</span> <span class="cn">NULL</span>,
-  color <span class="op">=</span> <span class="cn">NULL</span>,
-  weight <span class="op">=</span> <span class="cn">NULL</span>,
-  opacity <span class="op">=</span> <span class="cn">NULL</span>,
-  fill <span class="op">=</span> <span class="cn">NULL</span>,
-  fillColor <span class="op">=</span> <span class="cn">NULL</span>,
-  fillOpacity <span class="op">=</span> <span class="cn">NULL</span>,
-  dashArray <span class="op">=</span> <span class="cn">NULL</span>,
-  smoothFactor <span class="op">=</span> <span class="cn">NULL</span>,
-  noClip <span class="op">=</span> <span class="cn">NULL</span>,
-  options <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">setShapeStyle</span><span class="op">(</span></span>
+<span>  <span class="va">map</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/getMapData.html" class="external-link">getMapData</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span>,</span>
+<span>  <span class="va">layerId</span>,</span>
+<span>  stroke <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  opacity <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fillColor <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fillOpacity <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dashArray <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  smoothFactor <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  noClip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  options <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>map</dt>
 <dd><p>Leaflet map object</p></dd>
+
+
 <dt>data</dt>
 <dd><p>Leaflet map data</p></dd>
+
+
 <dt>layerId</dt>
 <dd><p>Layer to manipulate</p></dd>
+
+
 <dt>stroke</dt>
 <dd><p>Stroke (bool)</p></dd>
+
+
 <dt>color</dt>
 <dd><p>Shape color</p></dd>
+
+
 <dt>weight</dt>
 <dd><p>Stroke weight (line width)</p></dd>
+
+
 <dt>opacity</dt>
 <dd><p>Stroke opacity</p></dd>
+
+
 <dt>fill</dt>
 <dd><p>Shape fill (bool)</p></dd>
+
+
 <dt>fillColor</dt>
 <dd><p>Fill color</p></dd>
+
+
 <dt>fillOpacity</dt>
 <dd><p>Fill opacity</p></dd>
+
+
 <dt>dashArray</dt>
 <dd><p>NULL</p></dd>
+
+
 <dt>smoothFactor</dt>
 <dd><p>Should shapes and colors be smooth</p></dd>
+
+
 <dt>noClip</dt>
 <dd><p>Allow clipping</p></dd>
+
+
 <dt>options</dt>
 <dd><p>Leaflet options</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -123,7 +150,7 @@ from https://github.com/rstudio/leaflet/pull/598</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

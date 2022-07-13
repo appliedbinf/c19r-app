@@ -1,10 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 2.0.3
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   deploying: deploying.html
   local-development: local-development.html
-last_built: 2022-05-19T14:51Z
+last_built: 2022-07-13T14:54Z
 urls:
   reference: https://appliedbinf.github.io/c19r-app/reference
   article: https://appliedbinf.github.io/c19r-app/articles

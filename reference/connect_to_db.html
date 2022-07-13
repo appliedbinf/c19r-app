@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">covid19RiskPlanner</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,44 +58,59 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">connect_to_db</span><span class="op">(</span>
-  drv <span class="op">=</span> <span class="fu">RMySQL</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html" class="external-link">MySQL</a></span><span class="op">(</span><span class="op">)</span>,
-  username <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_USERNAME"</span><span class="op">)</span>,
-  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_PASSWORD"</span><span class="op">)</span>,
-  host <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_HOST"</span><span class="op">)</span>,
-  port <span class="op">=</span> <span class="fl">3306</span>,
-  <span class="va">dbname</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect_to_db</span><span class="op">(</span></span>
+<span>  drv <span class="op">=</span> <span class="fu">RMySQL</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html" class="external-link">MySQL</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  username <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_USERNAME"</span><span class="op">)</span>,</span>
+<span>  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_PASSWORD"</span><span class="op">)</span>,</span>
+<span>  host <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"MYSQL_HOST"</span><span class="op">)</span>,</span>
+<span>  port <span class="op">=</span> <span class="fl">3306</span>,</span>
+<span>  <span class="va">dbname</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>drv</dt>
 <dd><p>DBI-compatible database driver</p></dd>
+
+
 <dt>username</dt>
 <dd><p>login username</p></dd>
+
+
 <dt>password</dt>
 <dd><p>login password</p></dd>
+
+
 <dt>host</dt>
 <dd><p>database hostname or IP</p></dd>
+
+
 <dt>port</dt>
 <dd><p>database port</p></dd>
+
+
 <dt>dbname</dt>
 <dd><p>name of database/table to use</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional `poo::dbPool` options</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>`pool::dbPool` obj`</p>
+    
+
+<p>`pool::dbPool` obj`</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">connect_to_db</span><span class="op">(</span>drv <span class="op">=</span> <span class="fu">RMySQL</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html" class="external-link">MySQL</a></span><span class="op">(</span><span class="op">)</span>, username <span class="op">=</span> <span class="st">"root"</span>, password <span class="op">=</span> <span class="st">"root"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">connect_to_db</span><span class="op">(</span>drv <span class="op">=</span> <span class="fu">RMySQL</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html" class="external-link">MySQL</a></span><span class="op">(</span><span class="op">)</span>, username <span class="op">=</span> <span class="st">"root"</span>, password <span class="op">=</span> <span class="st">"root"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -107,7 +122,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
