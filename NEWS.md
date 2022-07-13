@@ -1,3 +1,8 @@
+# covid19RiskPlanner 1.2.4
+
+- Version bump for new c19rdata release
+
+
 # covid19RiskPlanner 1.2.3
 
 - Version bump for new c19rdata release
