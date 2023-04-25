@@ -130,29 +130,8 @@ NAVPAGE_HEADER_GA <- htmltools::HTML(
         '
 )
 
-NAVPAGE_GET_IP <- htmltools::tags$script(
-  # Script to get user IP
-    '
-        $(document).on("shiny:sessioninitialized", function() {
-          $.ajaxSetup({
-              timeout: 1000
-          });
-          $.get("https://ipinfo.io?token=15dd4534f98729", function(response) {
-              Shiny.setInputValue("ip_data", response.ip, {
-                  priority: "event"
-              });
-          }, "json").fail(function() {
-              Shiny.setInputValue("ip_data", "Unknown", {
-                  priority: "event"
-              });
-          });
-         });
-      '
-)
-
 NAVPAGE_HEADER <- tags$head(
   NAVPAGE_HEADER_GA,
-  NAVPAGE_GET_IP,
   shinyjs::useShinyjs(),
   sever::useSever(),
   waiter::use_waiter(),
