@@ -65,110 +65,26 @@ mod_usa_risk_map_ui <- function(id) {
               "Higher vaccination levels reduce the risk that exposure to COVID-19 will lead to severe disease and  onward transmission. We show an optional layer representing county-level population immunity via vaccination (allowing for two weeks for individuals completing a vaccination series).",
               "</div>"
             )
-          ),
-          fluidRow(
-            align = "center", class = "hidden-md hidden-lg hidden-xl d-sm d-xs",
-            column(
-              12,
-              mod_take_quiz_button_ui("to_quiz_sidebar")
-            )
           )
         )
       ),
       shinypanels::panel(
-        class = "col-md-6",
+        class = "col-md-8",
         title = "",
         can_collapse = FALSE,
         body = div(
+          div(
+            role="alert",
+            p("We have stopped updating the data for this application due to reporting changes and declining test volumes. Soon you'll be able to explore Covid's ebb and flow over time, but for now the data is frozen at December, 27, 2022",
+              class="alert alert-warning font-weight-bold",
+              style = "font-size:1.5em"
+            )
+          ),
           leaflet::leafletOutput(outputId = ns("usa_map"), height = "70vh"),
           HTML(
             "<p>(Note: This map uses a Web Mercator projection that inflates the area of states in northern latitudes. County boundaries are generalized for faster drawing.)</p>"
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              mod_switch_maps_ui("switcher_us", label = "Explore global risk estimates")
-            )
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              width = 12,
-              div(
-                class = "well fake-sidebar panel-content",
-                HTML(
-                  paste0(
-                    "<h3>After viewing this map are you MORE or LESS <strong>",
-                    "willing to participate</strong> in an event of this size?</h3>"
-                  )
-                ),
-                shinyWidgets::sliderTextInput(
-                  ns("risk_followup"),
-                  "",
-                  choices = c(
-                    "1" = "Much less willing",
-                    "2" = "A little less willing",
-                    "3" = "Same as before",
-                    "4" = "A little more willing",
-                    "5" = "Much more willing"
-                  ),
-                  selected = "Same as before",
-                  grid = T,
-                  width = "90%",
-                  hide_min_max = T
-                ),
-                shinyWidgets::actionBttn(
-                  ns("map_will"),
-                  label = "Submit",
-                  style = "jelly",
-                  color = "success",
-                  size = "sm",
-                ),
-              )
-            )
           )
         )
-      ),
-      shinypanels::panel(
-        class = "col-sm-12 col-md-2 hidden-sm hidden-xs",
-        body = div(
-          class = "",
-          htmlOutput(ns("risk_context_us")),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              HTML(
-                "<h3>Can you guess the risk levels in YOUR community?  Try the Risk Quiz and share your score!</h3>"
-              ),
-            )
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              mod_take_quiz_button_ui("to_quiz_map")
-            )
-          ),
-          fluidRow(
-            align = "center",
-            column(
-              12,
-              div(
-                div(style = "height: 10px;"),
-                div(
-                  class = "well fake-sidebar",
-                  HTML(
-                    "<p class='intro-text'><a href='https://duke.qualtrics.com/jfe/form/SV_0SZR4fPxyUAg9Ke', rel='noopener' target='_blank'>Fill out this 5-minute survey</a> for a chance to win a $50 Amazon gift card!</p>"
-                  )
-                )
-              )
-            )
-          )
-        ),
-        title = "Risk context",
-        collapsed = F
       )
     ))
   )
@@ -190,64 +106,6 @@ mod_usa_risk_map_server <- function(id, globals) {
       ))
     })
 
-
-    observeEvent(input$map_will, {
-      shinyjs::disable("map_will")
-      shinyjs::delay(3000, shinyjs::enable("map_will"))
-      map_consent <- globals$consent()
-      if (!is.null(map_consent) && map_consent == "yes") {
-        save_willingness(
-          db = globals$db,
-          source = "map",
-          asc_bias = input$asc_bias,
-          event_size = input$event_size_map,
-          answer = input$risk_followup,
-          ip = globals$ip(),
-          vacc_imm = input$imm_lvl,
-          latitude = globals$latitude(),
-          longitude = globals$longitude(),
-          utm_source = globals$ref_content()$utm_source,
-          utm_medium = globals$ref_content()$utm_medium,
-          utm_content = globals$ref_content()$utm_content,
-          utm_campaign = globals$ref_content()$utm_campaign
-        )
-        shinyWidgets::show_toast("Response saved", text = "Thank you!", timerProgressBar = F)
-      } else {
-        shinyWidgets::inputSweetAlert(
-          session = session, inputId = "over18_US",
-          inputPlaceholder = CONSENT_POPUP_PLACEHOLDER,
-          title = CONSENT_POPUP_TITLE,
-          text = CONSENT_POPUP_TEXT,
-          type = "question", reset_input = TRUE, btn_labels = "Confirm", input = "radio",
-          inputOptions = c("yes" = "Yes", "no" = "No"), inputValue = "yes"
-        )
-      }
-    })
-
-    observeEvent(input$over18_US, {
-      if (input$over18_US == "yes") {
-        session$sendCustomMessage("cookie-set", list(
-          name = "consent", value = "yes"
-        ))
-
-        save_willingness(
-          db = globals$db,
-          source = "map",
-          asc_bias = input$asc_bias,
-          event_size = input$event_size_map,
-          answer = input$risk_followup,
-          ip = globals$ip(),
-          vacc_imm = input$imm_lvl,
-          latitude = globals$latitude(),
-          longitude = globals$longitude(),
-          utm_source = globals$ref_content()$utm_source,
-          utm_medium = globals$ref_content()$utm_medium,
-          utm_content = globals$ref_content()$utm_content,
-          utm_campaign = globals$ref_content()$utm_campaign
-        )
-        shinyWidgets::show_toast("Response saved", text = "Thank you!", timerProgressBar = F)
-      }
-    })
 
     w <- waiter::Waiter$new(id = ns("usa_map"), 
                             html = tagList(waiter::spin_wave(),
