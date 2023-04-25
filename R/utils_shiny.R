@@ -4,7 +4,6 @@
 #' @export
 #'
 loadDataOnStart <- function() {
-  db <<- connect_to_db(dbname = "c19r")
   county_geom <<- sf::st_read(app_sys("map_data/geomUnitedStates.geojson"))
   stateline <<- sf::st_read(app_sys("map_data/US_stateLines.geojson"))[, c("STUSPS", "NAME", "geometry")]
   eu_geom <<- sf::st_read(app_sys("map_data/eu_risk_geoms.geojson"))
@@ -60,17 +59,7 @@ get_data <- function() {
     )
   }
   
-  EU_DEFAULT_RISK_DATA <- app_sys("app/www/eu_subregional_risk.csv")
-  EU_RISK_DATA <- Sys.getenv("C19R_RISK_DATA_EU", EU_DEFAULT_RISK_DATA)
-  
-  if (!file.exists(EU_RISK_DATA)) {
-    stop(
-      glue::glue(
-        "The pre-computed risk data does not exist at the given path",
-        "\n{EU_RISK_DATA}"
-      )
-    )
-  }
+
   
   DEFAULT_CASES_DIR <- app_sys("states_current/")
   CASES_DIR <- Sys.getenv("C19R_CASES_DIR", DEFAULT_CASES_DIR)
@@ -141,15 +130,7 @@ get_data <- function() {
   
   usa_counties <<- county_geom %>% dplyr::left_join(usa_counties, by = c("GEOID" = "GEOID"))
   
-  eu_regions <<- vroom::vroom(EU_RISK_DATA) %>%
-    dplyr::select(-name, -country)
-  
-  eu_regions <<- eu_geom %>% dplyr::inner_join(eu_regions, by ="code") %>%
-    dplyr::group_by(name, country) %>%
-    dplyr::slice(1) %>% dplyr::ungroup() %>%
-    dplyr::mutate(
-      polyid = paste0("gid", dplyr::row_number())
-    )
+
   
 
 }
