@@ -1,3 +1,7 @@
+# covid19RiskPlanner 1.3
+
+- Remove interactive elements and freeze data
+
 # covid19RiskPlanner 1.2.4
 
 - Version bump for new c19rdata release
