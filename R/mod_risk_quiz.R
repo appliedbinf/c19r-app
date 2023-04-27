@@ -347,53 +347,6 @@ mod_risk_quiz_server <- function(id, globals) {
         )
       }
 
-      if (globals$consent() == "yes") {
-        sql <-
-          "INSERT INTO risk_game_results
-        (
-          GEOID, data_ts, pred_20, pred_50,
-          pred_100, pred_1000, g_20, g_50,
-          g_100, g_1000, ip, latitude,
-          longitude, utm_source, utm_medium,
-          utm_content, utm_campaign
-        )
-        VALUES (?geoid, ?data_ts, ?p20,
-                ?p50, ?p100, ?p1000, ?g20,
-                ?g50, ?g100, ?g1000, ?ip,
-                ?lat, ?long, NULLIF(?utm_source, 'NULL'),
-                NULLIF(?utm_medium, 'NULL'),
-                NULLIF(?utm_content, 'NULL'),
-                NULLIF(?utm_campaign, 'NULL')
-        )"
-        latitude <- globals$latitude()
-        longitude <- globals$longitude()
-        query <-
-          DBI::sqlInterpolate(
-            DBI::ANSI(),
-            gsub("\\n\\w+", " ", sql),
-            geoid = pred_risk$GEOID,
-            data_ts = pred_risk$data_ts,
-            p20 = pred_risk$pred_20,
-            p50 = pred_risk$pred_50,
-            p100 = pred_risk$pred_100,
-            p1000 = pred_risk$pred_1000,
-            g20 = pred_risk$g_20,
-            g50 = pred_risk$g_50,
-            g100 = pred_risk$g_100,
-            g1000 = pred_risk$g_1000,
-            ip = globals$ip(),
-            lat = ifelse(is.null(latitude), "Unknown", latitude),
-            long = ifelse(is.null(longitude), "Unknown", longitude),
-            utm_source = globals$ref_content()$utm_source,
-            utm_medium = globals$ref_content()$utm_medium,
-            utm_content = globals$ref_content()$utm_content,
-            utm_campaign = globals$ref_content()$utm_campaign
-          )
-        conn <- pool::poolCheckout(db)
-        DBI::dbSendQuery(conn, query)
-        pool::poolReturn(conn)
-      }
-
       tweet_url <- glue::glue(
         "https://twitter.com/intent/tweet?text={tweet_msg}&url=https://covid19risk.biosci.gatech.edu/?quiz"
       )
@@ -457,21 +410,6 @@ mod_risk_quiz_server <- function(id, globals) {
 
 
     observeEvent(input$game_will, {
-      save_willingness(
-        db = globals$db,
-        source = "game",
-        asc_bias = -1,
-        event_size = -1,
-        answer = input$quiz_followup,
-        ip = globals$ip(),
-        vacc_imm = -1,
-        latitude = globals$latitude(),
-        longitude = globals$longitude(),
-        utm_source = globals$ref_content()$utm_source,
-        utm_medium = globals$ref_content()$utm_medium,
-        utm_content = globals$ref_content()$utm_content,
-        utm_campaign = globals$ref_content()$utm_campaign
-      )
       shinyjs::hide("game_interactive_elem")
       shinyjs::hide("game_will")
     })
