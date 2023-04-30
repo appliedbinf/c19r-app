@@ -85,47 +85,7 @@ mod_usa_risk_map_ui <- function(id) {
             "<p>(Note: This map uses a Web Mercator projection that inflates the area of states in northern latitudes. County boundaries are generalized for faster drawing.)</p>"
           )
         )
-      ),
-      shinypanels::panel(
-         class = "col-sm-12 col-md-2 hidden-sm hidden-xs",
-         body = div(
-           class = "",
-           htmlOutput(ns("risk_context_us")),
-           fluidRow(
-             align = "center",
-             column(
-               12,
-               HTML(
-                 "<h3>Can you guess the risk levels in YOUR community?  Try the Risk Quiz and share your score!</h3>"
-               ),
-             )
-           ),
-           fluidRow(
-             align = "center",
-             column(
-               12,
-               mod_take_quiz_button_ui("to_quiz_map")
-             )
-           ),
-           fluidRow(
-             align = "center",
-             column(
-               12,
-               div(
-                 div(style = "height: 10px;"),
-                 div(
-                   class = "well fake-sidebar",
-                   HTML(
-                     "<p class='intro-text'><a href='https://duke.qualtrics.com/jfe/form/SV_0SZR4fPxyUAg9Ke', rel='noopener' target='_blank'>Fill out this 5-minute survey</a> for a chance to win a $50 Amazon gift card!</p>"
-                   )
-                 )
-               )
-             )
-           )
-         ),
-         title = "Risk context",
-         collapsed = F
-       )
+      )
     ))
   )
 }
