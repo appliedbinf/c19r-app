@@ -26,18 +26,9 @@ app_server <- function(input, output, session) {
   # Global variables to pass around modules
   r <- reactive
   globals <- list(
-    consent = r(input[["cookies"]][["consent"]]),
-    atitude = r(input[["lat"]]),
-    longitude = r(input[["long"]]),
-    ip = r(input[["ip_data"]]),
-    nav = r(input[["nav-page"]]),
-    setGeo = r(input[["setGeo"]]),
-    geolocation = r(input[["geolocation"]]),
     session = session
   )
 
   mod_usa_risk_map_server("usa_risk_map", globals)
   mod_show_data_server("to_data", globals)
-  mod_risk_quiz_server("quiz", globals)
-  mod_take_quiz_button_server("to_quiz_map", globals)
 }

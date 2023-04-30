@@ -17,8 +17,6 @@ app_ui <- function(request) {
     header = NAVPAGE_HEADER,
     footer = NAVPAGE_FOOTER,
     mod_usa_risk_map_ui("usa_risk_map"),
-    mod_risk_quiz_ui("quiz"),
-
     tutorial_tab(),
     about_tabset(),
     bslib::nav_item(HTML(
