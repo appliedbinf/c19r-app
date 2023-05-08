@@ -69,7 +69,7 @@ mod_usa_risk_map_ui <- function(id) {
         )
       ),
       shinypanels::panel(
-        class = "col-md-8",
+        class = "col-md-6",
         title = "",
         can_collapse = FALSE,
         body = div(
